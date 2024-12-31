@@ -1,0 +1,1 @@
+import{_ as e,c as t,o,a as s}from"./index-DNstq02H.js";const a={},c={class:"view about",style:{"padding-top":"60px"}},n=s("h1",null,"This is an about page",-1),_=[n];function i(r,d){return o(),t("div",c,_)}const p=e(a,[["render",i]]);export{p as default};
