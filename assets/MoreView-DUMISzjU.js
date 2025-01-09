@@ -1,1 +1,0 @@
-import{_ as t,H as s,c as a,a as r,b as n,r as c,o as i}from"./index-CQkcbSZW.js";const _={components:{Header:s},data(){return{pageTitle:"더보기"}}},l={class:"view more"},p=n("h1",null,"This is a more page",-1);function d(m,u,f,h,e,H){const o=c("Header");return i(),a("div",l,[r(o,{title:e.pageTitle},null,8,["title"]),p])}const v=t(_,[["render",d]]);export{v as default};
