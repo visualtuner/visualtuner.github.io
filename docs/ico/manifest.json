@@ -1,0 +1,16 @@
+{
+	"name": "Smart Guide",
+	"icons": [
+		{
+			"src": "/android-icon-512x512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	],
+	"display": "standalone",
+	"start_url": "/",
+	"description": "Smart Guide",
+	"background_color": "white",
+	"short_name": "Smart Guide",
+	"theme_color": "#FFF"
+}
