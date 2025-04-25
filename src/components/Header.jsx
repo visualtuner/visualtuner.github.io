@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 
-export default function Header() {
+export default function Header({title}) {
 	return (
-		<nav>
-			<Link to="/">Home</Link> | <Link to="/Components">Components</Link>
-		</nav>
+        <header className="app-bar">
+            <p>{title}</p>
+        </header>
 	);
 }
