@@ -1,21 +1,17 @@
-import { useLocation } from "react-router-dom";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import PageTransition from "../components/PageTransition";
 import Home from "../pages/Home";
 import Components from "../pages/Components";
-import Layout from "../components/Layout";
-import { variants, transition } from "../transition/transitionVariants";
-import useNavigationDirection from "../hooks/useNavigationDirection";
 
 export default function AppRouter() {
 	const location = useLocation();
-	const direction = useNavigationDirection();
 
 	return (
-		<Routes location={location}>
-			<Route element={<Layout />}>
+		<PageTransition>
+			<Routes location={location}>
 				<Route path="/" element={<Home />} />
-				<Route path="/Components" element={<Components />} />
-			</Route>
-		</Routes>
+				<Route path="/components" element={<Components />} />
+			</Routes>
+		</PageTransition>
 	);
 }
