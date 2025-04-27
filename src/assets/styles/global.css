@@ -8,6 +8,8 @@
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
+    color: #213547;
+    background-color: #ffffff;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -94,21 +96,6 @@ button:focus-visible {
     }
 }
 
-.page {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-    background: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    opacity: 0.9;
-}
 
 .app-bar {
     display: flex;
@@ -134,7 +121,7 @@ button:focus-visible {
     height: 60px;
     background-color: #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: 100;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -142,46 +129,59 @@ button:focus-visible {
 
 
 
-.page-transition-enter {
+.page {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* 앞으로 가기 애니메이션 */
+.page-forward-enter {
     z-index: 1;
     transform: translateX(100%);
 }
 
-.page-transition-enter-active {
+.page-forward-enter-active {
     transform: translateX(0);
-    transition: transform 300ms;
+    transition: all 300ms ease;
 }
 
-.page-transition-exit {
+.page-forward-exit {
     z-index: 0;
     transform: translateX(0);
 }
 
-.page-transition-exit-active {
-    transform: translateX(-50%);
-    transition: transform 300ms;
+.page-forward-exit-active {
+    transform: translateX(-30px);
+    transition: all 300ms ease;
 }
 
-
-
-.fade-enter {
-    opacity: 0;
-    transform: translateY(30%);
+/* 뒤로 가기 애니메이션 */
+.page-back-enter {
+    z-index: 0;
+    transform: translateX(-30px);
 }
 
-.fade-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 400ms ease-in-out;
+.page-back-enter-active {
+    transform: translateX(0);
+    transition: all 300ms ease;
 }
 
-.fade-exit {
-    opacity: 1;
-    transform: translateY(0);
+.page-back-exit {
+    z-index: 1;
+    transform: translateX(0);
 }
 
-.fade-exit-active {
-    opacity: 0;
-    transform: translateY(-30%);
-    transition: all 400ms ease-in-out;
+.page-back-exit-active {
+    transform: translateX(100%);
+    transition: all 300ms ease;
 }
