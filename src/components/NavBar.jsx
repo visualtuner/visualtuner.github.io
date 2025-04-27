@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar() {
+    const navigate = useNavigate();
+    
 	return (
         <nav className="nav-bar">
-            <Link to="/">홈</Link>
-            <Link to="/Components">컴포넌트</Link>
+            <button onClick={() => navigate('/')}>홈</button>
+            <button onClick={() => navigate('/components')}>컴포넌트</button>
         </nav>
 	);
 }

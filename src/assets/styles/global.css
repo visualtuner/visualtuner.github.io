@@ -19,6 +19,7 @@
 
 * {
     -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
 }
 
 a {
@@ -83,10 +84,11 @@ button:focus-visible {
 
 
 #root {
-    max-width: 1280px;
+    width: 100%;
+    min-height: 100%;
     margin: 0 auto;
-    padding: 2rem;
-    text-align: center;
+    padding: 0;
+    position: relative;
 }
 
 
@@ -114,9 +116,9 @@ button:focus-visible {
 
 .nav-bar {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-around;
-    padding: 0 1rem;
+    padding: 0;
     width: 100%;
     height: 60px;
     background-color: #fff;
@@ -125,6 +127,14 @@ button:focus-visible {
     position: fixed;
     bottom: 0;
     left: 0;
+}
+
+.nav-bar button {
+    appearance: none;
+    flex: 1 0 0;
+    min-width: 0;
+    text-align: center;
+    background: transparent;
 }
 
 
@@ -156,7 +166,7 @@ button:focus-visible {
 }
 
 .page-forward-exit {
-    z-index: 0;
+    z-index: auto;
     transform: translateX(0);
 }
 
@@ -167,7 +177,7 @@ button:focus-visible {
 
 /* 뒤로 가기 애니메이션 */
 .page-back-enter {
-    z-index: 0;
+    z-index: auto;
     transform: translateX(-30px);
 }
 
