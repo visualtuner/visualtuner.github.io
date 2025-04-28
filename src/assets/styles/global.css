@@ -162,7 +162,7 @@ button:focus-visible {
 
 .page-forward-enter-active {
     transform: translateX(0) translateZ(0);
-    transition: all 2000ms ease;
+    transition: all 500ms ease;
 }
 
 .page-forward-exit {
@@ -172,8 +172,11 @@ button:focus-visible {
 
 .page-forward-exit-active {
     transform: translateX(-30px) translateZ(0);
-    transition: all 2000ms ease;
+    transition: all 500ms ease;
 }
+
+.page-forward-enter-done { z-index: 1; }
+.page-forward-exit-done { z-index: auto; }
 
 /* 뒤로 가기 애니메이션 */
 .page-back-enter {
@@ -183,7 +186,7 @@ button:focus-visible {
 
 .page-back-enter-active {
     transform: translateX(0) translateZ(0);
-    transition: all 2000ms ease;
+    transition: all 500ms ease;
 }
 
 .page-back-exit {
@@ -193,5 +196,8 @@ button:focus-visible {
 
 .page-back-exit-active {
     transform: translateX(100%) translateZ(0);
-    transition: all 2000ms ease;
+    transition: all 500ms ease;
 }
+
+.page-back-enter-done { z-index: auto; }
+.page-back-exit-done { z-index: 1; }
