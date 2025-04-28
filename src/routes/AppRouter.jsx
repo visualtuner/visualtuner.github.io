@@ -33,7 +33,7 @@ export default function AppRouter() {
 			<CSSTransition
 				key={location.pathname}
 				nodeRef={nodeRef}
-				timeout={500}
+				timeout={300}
 				unmountOnExit
 			>
 				<div ref={nodeRef} className="page">
