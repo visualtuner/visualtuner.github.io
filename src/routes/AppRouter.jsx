@@ -3,9 +3,9 @@ import { Routes, Route, useLocation, useNavigationType } from "react-router-dom"
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import Home from "../pages/Home";
 import Components from "../pages/Components";
-import Buttons from "../pages/Buttons"; // 추가
+import Buttons from "../pages/Buttons";
 
-const MAIN_MENUS = ['/', '/Components'];
+const ROOT_MENUS = ['/', '/Components'];
 
 export default function AppRouter() {
 	const location = useLocation();
@@ -26,23 +26,35 @@ export default function AppRouter() {
 		return refMap.current.get(path);
 	}, [location.pathname]);
 
-	const isMainMenu = (path) => MAIN_MENUS.includes(path);
+	const isRootMenu = (path) => ROOT_MENUS.includes(path);
 
 	const from = prevLocation.current.pathname;
 	const to = location.pathname;
-	const isFromMain = isMainMenu(from);
-	const isToMain = isMainMenu(to);
+	const isFromRoot = isRootMenu(from);
+	const isToRoot = isRootMenu(to);
 
 	// 새로 들어오는 애를 기준으로 트랜지션 판단
-	const needTransition = !(isFromMain && isToMain);
+	const needTransition = !(isFromRoot && isToRoot);
 
-	const transitionClassNames = needTransition
-		? navigationType === "POP"
-			? "page-back"
-			: "page-forward"
-		: "";
+	// ✨ 방향성 결정
+	let transitionClassNames = "";
+	if (isToRoot && !isFromRoot) {
+		// 서브 → 메인 이동이면 무조건 page-back
+		transitionClassNames = "page-back";
+	} else {
+		// 그 외는 navigationType 기준
+		transitionClassNames = needTransition
+			? navigationType === "POP"
+				? "page-back"
+				: "page-forward"
+			: "";
+	}
 
+	// timeout도 transition 필요 여부에 따라
 	const transitionTimeout = needTransition ? 300 : 0;
+
+	// ✨ 메인/서브 분기 클래스
+	const pageTypeClass = isRootMenu(location.pathname) ? "page--root" : "page--sub";
 
 	return (
 		<TransitionGroup
@@ -60,7 +72,7 @@ export default function AppRouter() {
 				timeout={transitionTimeout}
 				unmountOnExit
 			>
-				<div ref={nodeRef} className="page">
+				<div ref={nodeRef} className={`page ${pageTypeClass}`}>
 					<Routes location={location}>
 						<Route path="/" element={<Home />} />
 						<Route path="/Components" element={<Components />} />
