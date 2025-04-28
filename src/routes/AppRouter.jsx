@@ -26,14 +26,14 @@ export default function AppRouter() {
 			component={null}
 			childFactory={(child) =>
 				React.cloneElement(child, {
-					classNames: transitionClassNames, // ✅ 여기에 강제로 매 이동마다 direction 주입
+					classNames: transitionClassNames,
 				})
 			}
 		>
 			<CSSTransition
 				key={location.pathname}
 				nodeRef={nodeRef}
-				timeout={300}
+				timeout={2000}
 				unmountOnExit
 			>
 				<div ref={nodeRef} className="page">
