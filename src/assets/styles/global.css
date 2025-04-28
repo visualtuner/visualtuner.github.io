@@ -54,24 +54,25 @@ h1 {
 
 button {
     border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
+    border: none;
+    padding: 0;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
-    background-color: #1a1a1a;
+    background-color: transparent;
     cursor: pointer;
-    transition: border-color 0.25s;
+    color: #646cff;
+    min-height: 44px;
 }
 
-button:hover {
+/* button:hover {
     border-color: #646cff;
 }
 
 button:focus,
 button:focus-visible {
     outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 @media (prefers-color-scheme: light) {
     :root {
@@ -84,7 +85,7 @@ button:focus-visible {
     }
 
     button {
-        background-color: #f9f9f9;
+        /* background-color: #f9f9f9; */
     }
 }
 
@@ -109,7 +110,7 @@ button:focus-visible {
 .app-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 0 1rem;
     width: 100%;
     height: 60px;
@@ -161,6 +162,7 @@ button:focus-visible {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     padding-top: 60px;
     z-index: calc(var(--layer-z-index) + var(--transition-z-index));
+    --transition-duration: 200ms;
 }
 
 .page--root {
@@ -174,22 +176,26 @@ button:focus-visible {
 /* 앞으로 가기 애니메이션 */
 .page-forward-enter {
     --transition-z-index: 1;
-    transform: translateY(100%) translateZ(0);
+    opacity: 0;
+    transform: translateY(200px) translateZ(0);
 }
 
 .page-forward-enter-active {
     transform: translateY(0) translateZ(0);
-    transition: all 300ms  ease;
+    opacity: 1;
+    transition: all var(--transition-duration) ease;
 }
 
 .page-forward-exit {
     --transition-z-index: 0;
+    opacity: 1;
     transform: translateY(0) translateZ(0);
 }
 
 .page-forward-exit-active {
-    transform: translateY(-30px) translateZ(0);
-    transition: all 300ms ease;
+    opacity: 0;
+    transform: translateY(-20px) translateZ(0);
+    transition: all var(--transition-duration) ease;
 }
 
 .page-forward-enter-done { --transition-z-index: 1; }
@@ -198,22 +204,26 @@ button:focus-visible {
 /* 뒤로 가기 애니메이션 */
 .page-back-enter {
     --transition-z-index: 0;
-    transform: translateY(-30px) translateZ(0);
+    opacity: 0;
+    transform: translateY(-20px) translateZ(0);
 }
 
 .page-back-enter-active {
+    opacity: 1;
     transform: translateY(0) translateZ(0);
-    transition: all 300ms ease;
+    transition: all var(--transition-duration) ease;
 }
 
 .page-back-exit {
     --transition-z-index: 1;
+    opacity: 1;
     transform: translateY(0) translateZ(0);
 }
 
 .page-back-exit-active {
-    transform: translateY(100%) translateZ(0);
-    transition: all 300ms  ease;
+    opacity: 0;
+    transform: translateY(200px) translateZ(0);
+    transition: all var(--transition-duration)  ease;
 }
 
 .page-back-enter-done { --transition-z-index: 0; }

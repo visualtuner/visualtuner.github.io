@@ -51,7 +51,7 @@ export default function AppRouter() {
 	}
 
 	// timeout도 transition 필요 여부에 따라
-	const transitionTimeout = needTransition ? 300 : 0;
+	const transitionTimeout = needTransition ? 200 : 0;
 
 	// ✨ 메인/서브 분기 클래스
 	const pageTypeClass = isRootMenu(location.pathname) ? "page--root" : "page--sub";
