@@ -9,7 +9,7 @@ export default function Buttons() {
     return (
         <>
             <Header >
-                <IconButton aria-label="back" size="large" onClick={() => navigate(-1)}>
+                <IconButton aria-label="back" onClick={() => navigate(-1)}>
                     <ArrowBackIcon />
                 </IconButton>
                 <p>버튼</p>
