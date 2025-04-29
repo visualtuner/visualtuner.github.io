@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 export default function Buttons() {
     const navigate = useNavigate();
@@ -7,7 +9,9 @@ export default function Buttons() {
     return (
         <>
             <Header >
-                <button onClick={() => navigate(-1)}>뒤로</button>
+                <IconButton aria-label="back" size="large" onClick={() => navigate(-1)}>
+                    <ArrowBackIcon />
+                </IconButton>
                 <p>버튼</p>
             </Header>
             <h1>Buttons Page</h1>
