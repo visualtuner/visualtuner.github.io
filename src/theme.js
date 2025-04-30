@@ -25,22 +25,28 @@ const theme = createTheme({
 		},
 	},
 	components: {
-		MuiButton: {
+		MuiButtonBase: {
 			styleOverrides: {
-                root: {
+				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
 					},
-                    boxShadow: 'none', // ✅ 기본 그림자 제거
-                    '&:hover': {
-                        boxShadow: 'none', // ✅ hover 시 생기는 그림자도 제거
-                    },
-                    '&:active': {
-                        boxShadow: 'none', // ✅ active 시 생기는 그림자도 제거
-                    },
-                    '&.Mui-focusVisible': {
-                        boxShadow: 'none', // ✅ focus 시 생기는 그림자 제거 (keyboard focus 등)
-                    },
+				},
+			},
+		},
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					boxShadow: "none", // ✅ 기본 그림자 제거
+					"&:hover": {
+						boxShadow: "none", // ✅ hover 시 생기는 그림자도 제거
+					},
+					"&:active": {
+						boxShadow: "none", // ✅ active 시 생기는 그림자도 제거
+					},
+					"&.Mui-focusVisible": {
+						boxShadow: "none", // ✅ focus 시 생기는 그림자 제거 (keyboard focus 등)
+					},
 				},
 				sizeSmall: {
 					height: "36px",
@@ -64,7 +70,6 @@ const theme = createTheme({
 		},
 		MuiIconButton: {
 			styleOverrides: {
-                
 				sizeSmall: {
 					fontSize: "20px",
 					width: "36px",
@@ -98,7 +103,7 @@ const theme = createTheme({
 
 		MuiCheckbox: {
 			styleOverrides: {
-                root: {
+				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
 					},
@@ -107,7 +112,7 @@ const theme = createTheme({
 		},
 		MuiRadio: {
 			styleOverrides: {
-                root: {
+				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
 					},
@@ -116,7 +121,7 @@ const theme = createTheme({
 		},
 		MuiSwitch: {
 			styleOverrides: {
-                root: {
+				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
 					},
