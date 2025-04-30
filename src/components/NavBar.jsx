@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 export default function NavBar() {
 	const navigate = useNavigate();
@@ -12,8 +13,8 @@ export default function NavBar() {
 
 	return (
 		<nav className="nav-bar">
-			<button onClick={() => handleNavClick('/')}>홈</button>
-			<button onClick={() => handleNavClick('/Components')}>컴포넌트</button>
+            <Button sx={{height:"100%", borderRadius: 0}} onClick={() => handleNavClick('/')}>홈</Button>
+            <Button sx={{height:"100%", borderRadius: 0}} onClick={() => handleNavClick('/Components')}>컴포넌트</Button>
 		</nav>
 	);
 }
