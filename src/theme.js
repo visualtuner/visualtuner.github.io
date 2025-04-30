@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const rippleEffectTimeout = 50;
+const rippleEffectSpeed = "0.2s";
 const theme = createTheme({
 	palette: {
 		primary: {
@@ -26,12 +26,22 @@ const theme = createTheme({
 	},
 	components: {
 		MuiButton: {
-			defaultProps: {
-				TouchRippleProps: {
-					timeout: rippleEffectTimeout,
-				},
-			},
 			styleOverrides: {
+                root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
+                    boxShadow: 'none', // ✅ 기본 그림자 제거
+                    '&:hover': {
+                        boxShadow: 'none', // ✅ hover 시 생기는 그림자도 제거
+                    },
+                    '&:active': {
+                        boxShadow: 'none', // ✅ active 시 생기는 그림자도 제거
+                    },
+                    '&.Mui-focusVisible': {
+                        boxShadow: 'none', // ✅ focus 시 생기는 그림자 제거 (keyboard focus 등)
+                    },
+				},
 				sizeSmall: {
 					height: "36px",
 					minHeight: "36px",
@@ -53,12 +63,8 @@ const theme = createTheme({
 			},
 		},
 		MuiIconButton: {
-            defaultProps: {
-				TouchRippleProps: {
-					timeout: rippleEffectTimeout,
-				},
-			},
 			styleOverrides: {
+                
 				sizeSmall: {
 					fontSize: "20px",
 					width: "36px",
@@ -90,24 +96,30 @@ const theme = createTheme({
 			},
 		},
 
-		MuiListItemButton: {
-			defaultProps: {
-				TouchRippleProps: {
-					timeout: rippleEffectTimeout,
-				},
-			},
-		},
 		MuiCheckbox: {
-			defaultProps: {
-				TouchRippleProps: {
-					timeout: rippleEffectTimeout,
+			styleOverrides: {
+                root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
 				},
 			},
 		},
 		MuiRadio: {
-			defaultProps: {
-				TouchRippleProps: {
-					timeout: rippleEffectTimeout,
+			styleOverrides: {
+                root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
+				},
+			},
+		},
+		MuiSwitch: {
+			styleOverrides: {
+                root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
 				},
 			},
 		},
