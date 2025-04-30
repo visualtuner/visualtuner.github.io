@@ -127,14 +127,16 @@ button:focus-visible {
     align-items: stretch;
     justify-content: space-around;
     padding: 0;
-    width: 100%;
+    width: auto;
     height: 60px;
-    background-color: #fff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #000;
     z-index: var(--layer-z-index-navbar);
     position: fixed;
-    bottom: 0;
-    left: 0;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    border-radius: 24px;
+    overflow: hidden;
 }
 
 .nav-bar button {

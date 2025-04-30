@@ -13,8 +13,34 @@ export default function NavBar() {
 
 	return (
 		<nav className="nav-bar">
-            <Button sx={{height:"100%", borderRadius: 0}} onClick={() => handleNavClick('/')}>홈</Button>
-            <Button sx={{height:"100%", borderRadius: 0}} onClick={() => handleNavClick('/Components')}>컴포넌트</Button>
+            <Button
+                onClick={() => handleNavClick('/')}
+                sx={{
+                    height:"100%",
+                    borderRadius: 0,
+                    color: '#fff',
+                    '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                        color: '#fff',
+                    },
+                    '& .MuiTouchRipple-root .MuiTouchRipple-ripple': {
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                    },
+                }}
+            >홈</Button>
+            <Button
+                onClick={() => handleNavClick('/Components')}
+                sx={{
+                    height:"100%",
+                    borderRadius: 0,
+                    color: '#fff',
+                    '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                        color: '#fff',
+                    },
+                    '& .MuiTouchRipple-root .MuiTouchRipple-ripple': {
+                        backgroundColor: 'rgba(255,255,255,0.1)',
+                    },
+                }}
+            >컴포넌트</Button>
 		</nav>
 	);
 }
