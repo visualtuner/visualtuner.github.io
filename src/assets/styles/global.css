@@ -166,6 +166,7 @@ button:focus-visible {
     z-index: calc(var(--layer-z-index) + var(--transition-z-index));
     --transition-duration: 300ms;
     --transition-easing: cubic-bezier(0.860, 0.000, 0.070, 1.000);
+    --transition-z-index: 0;
 }
 
 .page--root {

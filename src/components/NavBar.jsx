@@ -22,9 +22,6 @@ export default function NavBar() {
                     '& .MuiButton-startIcon, & .MuiButton-endIcon': {
                         color: '#fff',
                     },
-                    '& .MuiTouchRipple-root .MuiTouchRipple-ripple': {
-                        backgroundColor: 'rgba(255,255,255,0.1)',
-                    },
                 }}
             >홈</Button>
             <Button
@@ -35,9 +32,6 @@ export default function NavBar() {
                     color: '#fff',
                     '& .MuiButton-startIcon, & .MuiButton-endIcon': {
                         color: '#fff',
-                    },
-                    '& .MuiTouchRipple-root .MuiTouchRipple-ripple': {
-                        backgroundColor: 'rgba(255,255,255,0.1)',
                     },
                 }}
             >컴포넌트</Button>

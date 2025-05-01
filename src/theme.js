@@ -31,23 +31,13 @@ theme.components = {
     MuiButtonBase: {
         styleOverrides: {
             root: {
+                "& .MuiTouchRipple-root": {
+                    opacity: 0.5,
+                },
                 "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
                     animationDuration: rippleEffectSpeed,
                 },
-                "&:hover": {
-                    // backgroundColor: "var(--variant-containedBg)",
-                },
             },
-            // containedPrimary: {
-            //     "&:hover": {
-            //         backgroundColor: theme.palette.primary.main,
-            //     },
-            // },
-            // containedSecondary: {
-            //     "&:hover": {
-            //         backgroundColor: theme.palette.secondary.main,
-            //     },
-            // },
         },
     },
     MuiButton: {

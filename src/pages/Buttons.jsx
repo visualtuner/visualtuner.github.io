@@ -9,7 +9,14 @@ export default function Buttons() {
     return (
         <>
             <Header >
-                <IconButton aria-label="back" onClick={() => navigate(-1)}>
+                <IconButton aria-label="back" onClick={() => navigate(-1)}
+                    sx={{
+                        color: '#000',
+                        '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                            color: '#000',
+                        },
+                    }}
+                >
                     <ArrowBackIcon />
                 </IconButton>
                 <p>버튼</p>
