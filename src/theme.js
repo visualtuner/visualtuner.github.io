@@ -32,7 +32,7 @@ theme.components = {
         styleOverrides: {
             root: {
                 "& .MuiTouchRipple-root": {
-                    opacity: 0.5,
+                    opacity: 0.8,
                 },
                 "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
                     animationDuration: rippleEffectSpeed,
