@@ -1,5 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from '@mui/material/Button';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export default function NavBar() {
 	const navigate = useNavigate();
@@ -23,7 +26,9 @@ export default function NavBar() {
                         color: '#fff',
                     },
                 }}
-            >홈</Button>
+            >
+                <HomeOutlinedIcon/>
+            </Button>
             <Button
                 onClick={() => handleNavClick('/Components')}
                 sx={{
@@ -34,7 +39,21 @@ export default function NavBar() {
                         color: '#fff',
                     },
                 }}
-            >컴포넌트</Button>
+            >
+                <AppsOutlinedIcon/>
+            </Button>
+            <Button
+                sx={{
+                    height:"100%",
+                    borderRadius: 0,
+                    color: '#fff',
+                    '& .MuiButton-startIcon, & .MuiButton-endIcon': {
+                        color: '#fff',
+                    },
+                }}
+            >
+                <AccountCircleIcon/>
+            </Button>
 		</nav>
 	);
 }
