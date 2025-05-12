@@ -10,7 +10,7 @@
 	"display": "standalone",
 	"start_url": "/SmartGuide/",
 	"description": "Smart Guide",
-	"background_color": "white",
+	"background_color": "#fefefe",
 	"short_name": "Smart Guide",
-	"theme_color": "#FFF"
+	"theme_color": "#fefefe"
 }
