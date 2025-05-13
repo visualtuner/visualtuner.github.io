@@ -2,6 +2,7 @@ import React from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import usePageTransition from "../hooks/usePageTransition";
+import Box from '@mui/material/Box';
 import Home from "../pages/Home";
 import Components from "../pages/Components";
 import Buttons from "../pages/Buttons";
@@ -35,13 +36,13 @@ export default function AppRouter() {
 				timeout={transitionTimeout}
 				unmountOnExit
 			>
-				<div ref={nodeRef} className={`page ${pageTypeClass}`}>
+				<Box ref={nodeRef} className={`page ${pageTypeClass}`}>
 					<Routes location={location}>
 						<Route path="/" element={<Home />} />
 						<Route path="/Components" element={<Components />} />
 						<Route path="/Components/Buttons" element={<Buttons />} />
 					</Routes>
-				</div>
+				</Box>
 			</CSSTransition>
 		</TransitionGroup>
 	);
