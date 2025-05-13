@@ -58,7 +58,7 @@ theme.components = {
     MuiButtonBase: {
         styleOverrides: {
             root: {
-                transition: `transform 0.2s ease !important`,
+                transition: `transform 0.1s ease !important`,
                 "&:active": {
                     transition: `transform 0.1s ease`,
                     transform: "translateZ(0) scale(0.95)",
