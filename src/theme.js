@@ -133,13 +133,13 @@ theme.components = {
     MuiSvgIcon: {
         styleOverrides: {
             fontSizeSmall: {
-                fontSize: "16px",
+                fontSize: "20px",
             },
             fontSizeMedium: {
                 fontSize: "24px",
             },
             fontSizeLarge: {
-                fontSize: "32px",
+                fontSize: "28px",
             },
         },
     },

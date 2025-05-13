@@ -1,6 +1,7 @@
-import React, { useRef, useMemo, useEffect } from "react";
+import React from "react";
 import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import usePageTransition from "../hooks/usePageTransition";
 import Home from "../pages/Home";
 import Components from "../pages/Components";
 import Buttons from "../pages/Buttons";
@@ -11,50 +12,12 @@ export default function AppRouter() {
 	const location = useLocation();
 	const navigationType = useNavigationType();
 
-	const refMap = useRef(new Map());
-	const prevLocation = useRef(location);
-
-	useEffect(() => {
-		prevLocation.current = location;
-	}, [location]);
-
-	const nodeRef = useMemo(() => {
-		const path = location.pathname;
-		if (!refMap.current.has(path)) {
-			refMap.current.set(path, React.createRef());
-		}
-		return refMap.current.get(path);
-	}, [location.pathname]);
-
-	const isRootMenu = (path) => ROOT_MENUS.includes(path);
-
-	const from = prevLocation.current.pathname;
-	const to = location.pathname;
-	const isFromRoot = isRootMenu(from);
-	const isToRoot = isRootMenu(to);
-
-	// 새로 들어오는 애를 기준으로 트랜지션 판단
-	const needTransition = !(isFromRoot && isToRoot);
-
-	// ✨ 방향성 결정
-	let transitionClassNames = "";
-	if (isToRoot && !isFromRoot) {
-		// 서브 → 메인 이동이면 무조건 page-back
-		transitionClassNames = "page-back";
-	} else {
-		// 그 외는 navigationType 기준
-		transitionClassNames = needTransition
-			? navigationType === "POP"
-				? "page-back"
-				: "page-forward"
-			: "";
-	}
-
-	// timeout도 transition 필요 여부에 따라
-	const transitionTimeout = needTransition ? 300 : 0;
-
-	// ✨ 메인/서브 분기 클래스
-	const pageTypeClass = isRootMenu(location.pathname) ? "page--root" : "page--sub";
+	const {
+		nodeRef,
+		transitionClassNames,
+		transitionTimeout,
+		pageTypeClass,
+	} = usePageTransition(location, navigationType, ROOT_MENUS);
 
 	return (
 		<TransitionGroup
