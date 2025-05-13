@@ -35,13 +35,14 @@
     user-select: none;
 }
 
-img {
+img, svg {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
     user-drag: none;
 }
+
 a {
     font-weight: 500;
     color: #646cff;
