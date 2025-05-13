@@ -1,14 +1,41 @@
 import { createTheme } from "@mui/material/styles";
 
-const rippleEffectSpeed = "0.2s";
+const rippleEffectSpeed = "0.3s";
 
 const theme = createTheme({
 	palette: {
+		mode: "light", // 또는 'dark'
 		primary: {
-			main: "#1976d2", // 기본 파란색
+			light: "#757ce8",
+			main: "#3f50b5",
+			dark: "#002884",
+			contrastText: "#fff",
 		},
 		secondary: {
-			main: "#9c27b0", // 보라색
+			light: "#ff7961",
+			main: "#f44336",
+			dark: "#ba000d",
+			contrastText: "#000",
+		},
+		error: {
+			main: "#f44336",
+		},
+		warning: {
+			main: "#ffa726",
+		},
+		info: {
+			main: "#29b6f6",
+		},
+		success: {
+			main: "#66bb6a",
+		},
+		background: {
+			default: "#f5f5f5",
+			paper: "#ffffff",
+		},
+		text: {
+			primary: "#333333",
+			secondary: "#666666",
 		},
 	},
 	typography: {
@@ -18,10 +45,10 @@ const theme = createTheme({
 	},
 	breakpoints: {
 		values: {
-			xs: 0,
-			sm: 600,
-			md: 960,
-			lg: 1280,
+			xs: 0, // mobile
+			sm: 768, // tablet
+			md: 1280, // desktop
+			lg: 1600, // large desktop
 			xl: 1920,
 		},
 	},
@@ -43,15 +70,15 @@ theme.components = {
     MuiButton: {
         styleOverrides: {
             root: {
-                boxShadow: "none", // ✅ 기본 그림자 제거
+                boxShadow: "none", // 기본 그림자 제거
                 "&:hover": {
-                    boxShadow: "none", // ✅ hover 시 생기는 그림자도 제거
+                    boxShadow: "none", // hover 시 생기는 그림자도 제거
                 },
                 "&:active": {
-                    boxShadow: "none", // ✅ active 시 생기는 그림자도 제거
+                    boxShadow: "none", // active 시 생기는 그림자도 제거
                 },
                 "&.Mui-focusVisible": {
-                    boxShadow: "none", // ✅ focus 시 생기는 그림자 제거 (keyboard focus 등)
+                    boxShadow: "none", // focus 시 생기는 그림자 제거 (keyboard focus 등)
                 },
             },
             containedPrimary: {
@@ -65,22 +92,22 @@ theme.components = {
                 },
             },
             sizeSmall: {
-                height: "36px",
-                minHeight: "36px",
+                height: "32px",
+                minHeight: "32px",
                 padding: "0 12px",
-                fontSize: "13px",
+                fontSize: "12px",
             },
             sizeMedium: {
                 height: "44px",
                 minHeight: "44px",
                 padding: "0 16px",
-                fontSize: "15px",
+                fontSize: "14px",
             },
             sizeLarge: {
-                height: "52px",
-                minHeight: "52px",
+                height: "56px",
+                minHeight: "56px",
                 padding: "0 20px",
-                fontSize: "17px",
+                fontSize: "16px",
             },
         },
     },
@@ -88,8 +115,8 @@ theme.components = {
         styleOverrides: {
             sizeSmall: {
                 fontSize: "20px",
-                width: "36px",
-                height: "36px",
+                width: "32px",
+                height: "32px",
             },
             sizeMedium: {
                 fontSize: "24px",
@@ -98,8 +125,8 @@ theme.components = {
             },
             sizeLarge: {
                 fontSize: "28px",
-                width: "52px",
-                height: "52px",
+                width: "56px",
+                height: "56px",
             },
         },
     },
