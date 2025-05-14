@@ -23,26 +23,26 @@ export default function SideDrawer({ isOpen, onClose }) {
         }
     }, [isOpen]);
 
-    // 👉 히스토리 push (주소 변경 없음)
-	useEffect(() => {
-		if (isOpen && !hasPushedRef.current) {
-			history.pushState({ drawer: true }, "", window.location.href);
-			hasPushedRef.current = true;
-		}
-	}, [isOpen]);
+    // ✅ 드로어 열릴 때 pushState (URL 변경 없음)
+    useEffect(() => {
+        if (isOpen && !hasPushedRef.current) {
+            history.pushState({ drawer: true }, ""); // URL 변경 없이 drawer state만 추가
+            hasPushedRef.current = true;
+        }
+    }, [isOpen]);
 
-	// 👉 뒤로가기(popstate) 시 드로어 닫기
-	useEffect(() => {
-		const handlePop = () => {
-			if (hasPushedRef.current) {
-				hasPushedRef.current = false;
-				onClose?.();
-			}
-		};
+    // ✅ 뒤로가기(popstate) 시 드로어만 닫기
+    useEffect(() => {
+        const handlePop = (e) => {
+            if (hasPushedRef.current) {
+                hasPushedRef.current = false;
+                onClose?.(); // 드로어만 닫고 라우팅은 막지 않음
+            }
+        };
 
-		window.addEventListener("popstate", handlePop);
-		return () => window.removeEventListener("popstate", handlePop);
-	}, [onClose]);
+        window.addEventListener("popstate", handlePop);
+        return () => window.removeEventListener("popstate", handlePop);
+    }, [onClose]);
 
     const handleSwiperSetup = (swiper) => {
         swiperRef.current = swiper;
@@ -88,6 +88,7 @@ export default function SideDrawer({ isOpen, onClose }) {
                 onSwiper={handleSwiperSetup}
                 onSlideChange={(swiper) => {
                     if (swiper.activeIndex === 1 && onClose) {
+                        hasPushedRef.current = false;
                         onClose();
                     }
                 }}
