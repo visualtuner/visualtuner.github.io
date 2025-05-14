@@ -45,43 +45,49 @@ export default function SideDrawer({ isOpen, onClose }) {
     };
     
 	return (
-		<Swiper
-			key={isOpen ? "open" : "closed"}
-            initialSlide={isOpen ? 0 : 1}
-            slidesPerView={"auto"}
-            resistanceRatio={0}
-            threshold={10}
-            allowTouchMove={true}
-            grabCursor={true}
-            touchStartPreventDefault={false}
-            onSwiper={handleSwiperSetup}
-            onSlideChange={(swiper) => {
-                if (swiper.activeIndex === 1 && onClose) {
-                    onClose(); // setIsOpen(false) 실행
-                }
+        <div
+            className="side-drawer-wrapper"
+            style={{
+                pointerEvents: isOpen ? "auto" : "none",
             }}
-            className="side-drawer-swiper"
-		>
-			<SwiperSlide className="drawer-panel">
-				<div className="menu">
-					<NavLink to="/">Home</NavLink>
-					<NavLink to="/Components">Components</NavLink>
-					<NavLink to="/Components/Buttons">Buttons</NavLink>
-				</div>
-			</SwiperSlide>
+        >
+            <Swiper
+                initialSlide={isOpen ? 0 : 1}
+                slidesPerView={"auto"}
+                resistanceRatio={0}
+                threshold={10}
+                allowTouchMove={true}
+                grabCursor={true}
+                touchStartPreventDefault={false}
+                onSwiper={handleSwiperSetup}
+                onSlideChange={(swiper) => {
+                    if (swiper.activeIndex === 1 && onClose) {
+                        onClose(); // setIsOpen(false) 실행
+                    }
+                }}
+                className="side-drawer-swiper"
+            >
+                <SwiperSlide className="drawer-panel">
+                    <div className="menu">
+                        <NavLink to="/">Home</NavLink>
+                        <NavLink to="/Components">Components</NavLink>
+                        <NavLink to="/Components/Buttons">Buttons</NavLink>
+                    </div>
+                </SwiperSlide>
 
-            <SwiperSlide className="drawer-backdrop-slide">
-                <div
-                    className="drawer-dummy"
-                    ref={backdropRef}
-                    style={{ opacity }}
-                    onClick={() => {
-                        console.log("clicked backdrop"); // ✅ 확인용
-                        swiperRef.current?.slideTo(1);
-                        onClose?.();
-                    }}
-                />
-            </SwiperSlide>
-		</Swiper>
+                <SwiperSlide className="drawer-backdrop-slide">
+                    <div
+                        className="drawer-dummy"
+                        ref={backdropRef}
+                        style={{ opacity }}
+                        onClick={() => {
+                            console.log("clicked backdrop"); // ✅ 확인용
+                            swiperRef.current?.slideTo(1);
+                            onClose?.();
+                        }}
+                    />
+                </SwiperSlide>
+            </Swiper>
+        </div>
 	);
 }
