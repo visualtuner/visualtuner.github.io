@@ -1,12 +1,16 @@
 import { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { NavLink } from "react-router-dom";
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import useDrawerNavigation from "../hooks/useDrawerNavigation";
 
 export default function SideDrawer({ isOpen, onClose }) {
     const swiperRef = useRef(null);
     const backdropRef = useRef(null); // 👉 dummy 슬라이드 내부 div 참조
     const [opacity, setOpacity] = useState(isOpen ? 1 : 0);
+    const { navigateWithClose } = useDrawerNavigation();
+    const hasPushedRef = useRef(false);
 
     useEffect(() => {
         const swiper = swiperRef.current;
@@ -18,6 +22,27 @@ export default function SideDrawer({ isOpen, onClose }) {
             swiper.slideTo(1);
         }
     }, [isOpen]);
+
+    // 👉 히스토리 push (주소 변경 없음)
+	useEffect(() => {
+		if (isOpen && !hasPushedRef.current) {
+			history.pushState({ drawer: true }, "", window.location.href);
+			hasPushedRef.current = true;
+		}
+	}, [isOpen]);
+
+	// 👉 뒤로가기(popstate) 시 드로어 닫기
+	useEffect(() => {
+		const handlePop = () => {
+			if (hasPushedRef.current) {
+				hasPushedRef.current = false;
+				onClose?.();
+			}
+		};
+
+		window.addEventListener("popstate", handlePop);
+		return () => window.removeEventListener("popstate", handlePop);
+	}, [onClose]);
 
     const handleSwiperSetup = (swiper) => {
         swiperRef.current = swiper;
@@ -43,6 +68,7 @@ export default function SideDrawer({ isOpen, onClose }) {
             backdropRef.current?.classList.remove("dragging");
         });
     };
+
     
 	return (
         <div
@@ -62,17 +88,23 @@ export default function SideDrawer({ isOpen, onClose }) {
                 onSwiper={handleSwiperSetup}
                 onSlideChange={(swiper) => {
                     if (swiper.activeIndex === 1 && onClose) {
-                        onClose(); // setIsOpen(false) 실행
+                        onClose();
                     }
                 }}
                 className="side-drawer-swiper"
             >
                 <SwiperSlide className="drawer-panel">
-                    <div className="menu">
-                        <NavLink to="/">Home</NavLink>
-                        <NavLink to="/Components">Components</NavLink>
-                        <NavLink to="/Components/Buttons">Buttons</NavLink>
-                    </div>
+                    <Stack spacing={2}>
+                        <Button color="primary" onClick={() => navigateWithClose('/')}>
+                            Home
+                        </Button>
+                        <Button color="primary" onClick={() => navigateWithClose('/Components')}>
+                            Components
+                        </Button>
+                        <Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>
+                            Buttons
+                        </Button>
+                    </Stack>
                 </SwiperSlide>
 
                 <SwiperSlide className="drawer-backdrop-slide">
@@ -81,8 +113,8 @@ export default function SideDrawer({ isOpen, onClose }) {
                         ref={backdropRef}
                         style={{ opacity }}
                         onClick={() => {
-                            console.log("clicked backdrop"); // ✅ 확인용
                             swiperRef.current?.slideTo(1);
+                            hasPushedRef.current = false;
                             onClose?.();
                         }}
                     />

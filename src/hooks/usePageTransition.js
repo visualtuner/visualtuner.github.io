@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useEffect } from "react";
 
-export default function usePageTransition(location, navigationType, rootMenus = ["/"]) {
+export default function usePageTransition(location, navigationType, rootMenus = ["/"], noTransition = false) {
 	const prevLocation = useRef(location);
 	const refMap = useRef(new Map());
 
@@ -25,17 +25,22 @@ export default function usePageTransition(location, navigationType, rootMenus = 
 	const needTransition = !(isFromRoot && isToRoot);
 
 	let transitionClassNames = "";
-	if (isToRoot && !isFromRoot) {
+	if (noTransition) {
+		transitionClassNames = "";
+	} else if (isToRoot && !isFromRoot) {
+		// 서브 → 루트로 가는 경우 (뒤로가기 느낌)
 		transitionClassNames = "page-back";
+	} else if (needTransition) {
+		if (navigationType === "POP") {
+			transitionClassNames = "page-back";
+		} else {
+			transitionClassNames = "page-forward";
+		}
 	} else {
-		transitionClassNames = needTransition
-			? navigationType === "POP"
-				? "page-back"
-				: "page-forward"
-			: "";
+		transitionClassNames = "";
 	}
 
-	const transitionTimeout = needTransition ? 300 : 0;
+	const transitionTimeout = noTransition ? 0 : needTransition ? 300 : 0;
 	const pageTypeClass = isToRoot ? "page--root" : "page--sub";
 
 	return {

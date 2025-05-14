@@ -12,13 +12,14 @@ const ROOT_MENUS = ['/', '/Components'];
 export default function AppRouter() {
 	const location = useLocation();
 	const navigationType = useNavigationType();
+    const noTransition = location.state?.noTransition ?? false;
 
 	const {
 		nodeRef,
 		transitionClassNames,
 		transitionTimeout,
 		pageTypeClass,
-	} = usePageTransition(location, navigationType, ROOT_MENUS);
+	} = usePageTransition(location, navigationType, ROOT_MENUS, noTransition);
 
 	return (
 		<TransitionGroup
