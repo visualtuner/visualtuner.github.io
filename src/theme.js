@@ -74,6 +74,9 @@ const theme = createTheme(baseTheme, {
 					"&:hover": { boxShadow: "none" },
 					"&:active": { boxShadow: "none" },
 					"&.Mui-focusVisible": { boxShadow: "none" },
+                    "&.MuiButton--circle": {
+						borderRadius: "200px",
+					},
 				},
 				containedPrimary: ({ theme }) => ({
 					[theme.breakpoints.down("md")]: {
@@ -108,21 +111,21 @@ const theme = createTheme(baseTheme, {
 					minHeight: "32px",
 					padding: "0 12px",
 					fontSize: "12px",
-					borderRadius: "4px",
+					borderRadius: "8px",
 				},
 				sizeMedium: {
 					height: "44px",
 					minHeight: "44px",
 					padding: "0 16px",
 					fontSize: "14px",
-					borderRadius: "6px",
+					borderRadius: "12px",
 				},
 				sizeLarge: {
 					height: "56px",
 					minHeight: "56px",
 					padding: "0 20px",
 					fontSize: "16px",
-					borderRadius: "8px",
+					borderRadius: "16px",
 				},
 			},
 		},
@@ -170,7 +173,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
-                        animationTimingFunction: reppleEffectEasing,
+						animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
@@ -180,7 +183,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
-                        animationTimingFunction: reppleEffectEasing,
+						animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
@@ -190,7 +193,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
-                        animationTimingFunction: reppleEffectEasing,
+						animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},

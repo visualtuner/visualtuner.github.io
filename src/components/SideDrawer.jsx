@@ -86,7 +86,7 @@ export default function SideDrawer({ isOpen, onClose }) {
 				className="side-drawer-swiper"
 			>
 				<SwiperSlide className="drawer-panel">
-					<Stack spacing={2}>
+					<Stack spacing={2} sx={{ px: 2, py: 3 }}>
 						<Button color="primary" onClick={() => navigateWithClose('/')}>Home</Button>
 						<Button color="primary" onClick={() => navigateWithClose('/Components')}>Components</Button>
 						<Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>Buttons</Button>
