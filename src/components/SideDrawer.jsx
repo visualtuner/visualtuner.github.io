@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Button from '@mui/material/Button';
@@ -10,97 +10,85 @@ export default function SideDrawer({ isOpen, onClose }) {
 	const backdropRef = useRef(null);
 	const [opacity, setOpacity] = useState(isOpen ? 1 : 0);
 	const { navigateWithClose } = useDrawerNavigation();
-	const hasPushedRef = useRef(false);
 
+	const handleCloseDrawer = useCallback(() => {
+		if (window.history.state?.drawer === true) {
+			console.log("⬅️ drawer entry → go back to remove it");
+			window.history.back(); // ✅ 핵심: replace가 아니라 go back
+			return;
+		}
+		onClose?.();
+	}, [onClose]);
 
-	// ✅ 드로어 닫힐 때 상태도 정리
-	const handleCloseDrawer = () => {
-        if (window.history.state?.drawer === true) {
-            console.log("🧹 replaceState after drawer close");
-            window.history.replaceState({}, "");
-        }
-        onClose?.();
-    };
-
-	// ✅ 드로어 열고 닫을 때 swiper 슬라이드 이동
+	// Swiper 슬라이드 이동
 	useEffect(() => {
 		const swiper = swiperRef.current;
 		if (!swiper) return;
-
-		if (isOpen) {
-			swiper.slideTo(0);
-		} else {
-			swiper.slideTo(1);
-		}
+		isOpen ? swiper.slideTo(0) : swiper.slideTo(1);
 	}, [isOpen]);
 
-	// ✅ 뒤로가기(popstate) 시 드로어만 닫기
+	// 드로어 열릴 때 pushState
 	useEffect(() => {
-		const handlePop = () => {
-			if (hasPushedRef.current) {
-				console.log("⬅️ popstate → drawer close only");
-				handleCloseDrawer();
-			}
-		};
+        if (isOpen) {
+            console.log("✅ pushState from drawer open");
+            window.history.pushState({ drawer: true }, "");
+        } else {
+            console.log("📛 manually closing drawer via history.back()");
+            // 👉 push된 drawer 상태라면 back으로 지우기
+            if (window.history.state?.drawer === true) {
+                window.history.back();
+            }
+        }
+    }, [isOpen]);
 
-		window.addEventListener("popstate", handlePop);
-		return () => window.removeEventListener("popstate", handlePop);
-	}, []);
+	// 뒤로가기 → 드로어 닫기
+	useEffect(() => {
+        const handlePop = () => {
+            const isDrawerOpen = isOpen;
+            const state = window.history.state;
+            console.log("🌀 popstate", { state, isDrawerOpen });
+
+            if (isDrawerOpen && state?.drawer === undefined) {
+                // ✅ drawer가 열려 있었고, 이전 상태에는 drawer가 없음 → 닫기
+                handleCloseDrawer();
+            }
+        };
+
+        window.addEventListener("popstate", handlePop);
+        return () => window.removeEventListener("popstate", handlePop);
+    }, [isOpen, handleCloseDrawer]);
 
 	const handleSwiperSetup = (swiper) => {
 		swiperRef.current = swiper;
-
 		swiper.on("progress", () => {
 			const prog = swiper.progress;
-			const clamped = Math.max(0, Math.min(1, prog));
-			setOpacity(1 - clamped);
+			setOpacity(1 - Math.max(0, Math.min(1, prog)));
 		});
-
-		swiper.on("touchStart", () => {
-			backdropRef.current?.classList.add("dragging");
-		});
-
-		swiper.on("touchEnd", () => {
-			backdropRef.current?.classList.remove("dragging");
-		});
-
+		swiper.on("touchStart", () => backdropRef.current?.classList.add("dragging"));
+		swiper.on("touchEnd", () => backdropRef.current?.classList.remove("dragging"));
 		swiper.on("transitionEnd", () => {
 			backdropRef.current?.classList.remove("dragging");
+			if (swiper.activeIndex === 1) handleCloseDrawer();
 		});
 	};
 
 	return (
-		<div
-			className="side-drawer-wrapper"
-			style={{ pointerEvents: isOpen ? "auto" : "none" }}
-		>
+		<div className="side-drawer-wrapper" style={{ pointerEvents: isOpen ? "auto" : "none" }}>
 			<Swiper
 				initialSlide={isOpen ? 0 : 1}
 				slidesPerView="auto"
-				resistanceRatio={0}
 				threshold={10}
-				allowTouchMove={true}
-				grabCursor={true}
+				allowTouchMove
 				touchStartPreventDefault={false}
+				grabCursor
 				onSwiper={handleSwiperSetup}
-				onSlideChange={(swiper) => {
-					if (swiper.activeIndex === 1) {
-						handleCloseDrawer();
-					}
-				}}
 				className="side-drawer-swiper"
 			>
 				<SwiperSlide className="drawer-panel">
 					<Stack spacing={2}>
-						<Button color="primary" onClick={() => navigateWithClose('/')}>
-							Home
-						</Button>
-						<Button color="primary" onClick={() => navigateWithClose('/Components')}>
-							Components
-						</Button>
-						<Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>
-							Buttons
-						</Button>
+						<Button color="primary" onClick={() => navigateWithClose('/')}>Home</Button>
+						<Button color="primary" onClick={() => navigateWithClose('/Components')}>Components</Button>
+						<Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>Buttons</Button>
 					</Stack>
 				</SwiperSlide>
 
