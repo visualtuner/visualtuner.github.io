@@ -112,20 +112,53 @@ const theme = createTheme(baseTheme, {
 					padding: "0 12px",
 					fontSize: "12px",
 					borderRadius: "8px",
+                    "& .MuiSvgIcon-root": {
+                        fontSize: "20px !important",
+                    },
+                    "& .MuiButton-startIcon": {
+                        marginLeft: "-4px",
+                        marginRight: "4px",
+                    },
+                    "& .MuiButton-endIcon": {
+                        marginLeft: "4px",
+                        marginRight: "-4px",
+                    },
 				},
 				sizeMedium: {
 					height: "44px",
 					minHeight: "44px",
-					padding: "0 16px",
+					padding: "0 20px",
 					fontSize: "14px",
 					borderRadius: "12px",
+                    "& .MuiSvgIcon-root": {
+                        fontSize: "24px !important",
+                    },
+                    "& .MuiButton-startIcon": {
+                        marginLeft: "-6px",
+                        marginRight: "6px",
+                    },
+                    "& .MuiButton-endIcon": {
+                        marginLeft: "6px",
+                        marginRight: "-6px",
+                    },
 				},
 				sizeLarge: {
 					height: "56px",
 					minHeight: "56px",
-					padding: "0 20px",
+					padding: "0 24px",
 					fontSize: "16px",
 					borderRadius: "16px",
+                    "& .MuiSvgIcon-root": {
+                        fontSize: "28px !important",
+                    },
+                    "& .MuiButton-startIcon": {
+                        marginLeft: "-8px",
+                        marginRight: "8px",
+                    },
+                    "& .MuiButton-endIcon": {
+                        marginLeft: "8px",
+                        marginRight: "-8px",
+                    },
 				},
 			},
 		},

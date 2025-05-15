@@ -14,15 +14,9 @@ export default function AppRouter() {
 	const navigationType = useNavigationType();
     const navigate = useNavigate();
 
-    // ✅ 상태 제거용 replace (딱 한 번)
+    // 상태 제거용 replace (딱 한 번)
     useEffect(() => {
-        console.log("🧭 AppRouter useEffect triggered", {
-            pathname: location.pathname,
-            state: location.state,
-        });
-
         if (location.state?.noTransition) {
-            console.log("🔄 Removing noTransition via navigate(..., replace: true)");
             navigate(location.pathname, { replace: true });
         }
     }, [location, navigate]);

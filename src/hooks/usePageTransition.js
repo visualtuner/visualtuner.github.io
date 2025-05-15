@@ -24,13 +24,6 @@ export default function usePageTransition(location, navigationType, rootMenus = 
 	const isToRoot = isRootMenu(to);
 	const needTransition = !(isFromRoot && isToRoot);
 
-    console.log("[usePageTransition]", {
-        from: prevLocation.current.pathname,
-        to: location.pathname,
-        navigationType,
-        noTransition,
-    });
-
 	let transitionClassNames = "";
 	if (noTransition) {
 		transitionClassNames = "";
