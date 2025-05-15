@@ -1,6 +1,7 @@
 import { createTheme } from "@mui/material/styles";
 
 const rippleEffectSpeed = "0.3s";
+const reppleEffectEasing = "cubic-bezier(0, 0.75, 0.5, 1)";
 
 const baseTheme = createTheme({
 	palette: {
@@ -51,18 +52,17 @@ const theme = createTheme(baseTheme, {
 		MuiButtonBase: {
 			styleOverrides: {
 				root: {
-					transition: `transform 0.1s ease !important`,
+					// transition: `transform 0.1s ease !important`,
 					"&:active": {
-						transition: `transform 0.1s ease`,
-						transform: "translateZ(0) scale(0.95)",
+						// transition: `transform 0.1s ease`,
+						// transform: "translateZ(0) scale(0.95)",
 					},
 					"& .MuiTouchRipple-root": {
 						opacity: 0.8,
 					},
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
-						animationTimingFunction:
-							"cubic-bezier(0, 0.75, 0.5, 1)",
+						animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
@@ -170,6 +170,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
+                        animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
@@ -179,6 +180,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
+                        animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
@@ -188,6 +190,7 @@ const theme = createTheme(baseTheme, {
 				root: {
 					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
 						animationDuration: rippleEffectSpeed,
+                        animationTimingFunction: reppleEffectEasing,
 					},
 				},
 			},
