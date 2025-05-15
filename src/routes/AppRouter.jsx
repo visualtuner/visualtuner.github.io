@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useLocation, useNavigationType, useNavigate } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import usePageTransition from "../hooks/usePageTransition";
 import Box from '@mui/material/Box';
@@ -12,14 +12,21 @@ const ROOT_MENUS = ['/', '/Components'];
 export default function AppRouter() {
 	const location = useLocation();
 	const navigationType = useNavigationType();
-    const noTransition = location.state?.noTransition ?? false;
+    const navigate = useNavigate();
+
+    // ✅ 상태 제거용 replace (딱 한 번)
+    useEffect(() => {
+        if (location.state?.noTransition) {
+            navigate(location.pathname, { replace: true });
+        }
+    }, [location, navigate]);
 
 	const {
 		nodeRef,
 		transitionClassNames,
 		transitionTimeout,
 		pageTypeClass,
-	} = usePageTransition(location, navigationType, ROOT_MENUS, noTransition);
+	} = usePageTransition(location, navigationType, ROOT_MENUS, location.state?.noTransition ?? false);
 
 	return (
 		<TransitionGroup

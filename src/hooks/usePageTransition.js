@@ -28,7 +28,6 @@ export default function usePageTransition(location, navigationType, rootMenus = 
 	if (noTransition) {
 		transitionClassNames = "";
 	} else if (isToRoot && !isFromRoot) {
-		// 서브 → 루트로 가는 경우 (뒤로가기 느낌)
 		transitionClassNames = "page-back";
 	} else if (needTransition) {
 		if (navigationType === "POP") {

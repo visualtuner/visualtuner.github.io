@@ -23,7 +23,7 @@ export default function SideDrawer({ isOpen, onClose }) {
         }
     }, [isOpen]);
 
-    // ✅ 드로어 열릴 때 pushState (URL 변경 없음)
+    // 드로어 열릴 때 pushState (URL 변경 없음)
     useEffect(() => {
         if (isOpen && !hasPushedRef.current) {
             history.pushState({ drawer: true }, ""); // URL 변경 없이 drawer state만 추가
@@ -31,7 +31,7 @@ export default function SideDrawer({ isOpen, onClose }) {
         }
     }, [isOpen]);
 
-    // ✅ 뒤로가기(popstate) 시 드로어만 닫기
+    // 뒤로가기(popstate) 시 드로어만 닫기
     useEffect(() => {
         const handlePop = (e) => {
             if (hasPushedRef.current) {
