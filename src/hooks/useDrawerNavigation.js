@@ -7,13 +7,29 @@ export default function useDrawerNavigation() {
 	const location = useLocation();
 
 	const navigateWithClose = (path) => {
-		if (location.pathname === path) {
-			// 같은 경로일 경우 드로어만 닫기
+		console.log("▶ navigateWithClose called", {
+			current: location.pathname,
+			target: path,
+			state: location.state,
+			historyLength: window.history.length,
+		});
+
+		const isSamePath = location.pathname === path;
+		const isDrawerPushed = window.history.state?.drawer === true;
+
+		// ✅ 같은 경로일 땐 pushState도 하지 말자!
+		if (!isSamePath && !isDrawerPushed) {
+			console.log("✅ pushState from navigateWithClose");
+			window.history.pushState({ drawer: true }, "");
+		}
+
+		if (isSamePath) {
+			console.log("🟨 same path → just close drawer, no navigate");
 			setDrawerOpen(false);
 			return;
 		}
 
-		// 다른 경로일 때만 이동 + 드로어 닫기
+		console.log("🟩 navigating to new path with noTransition");
 		setDrawerOpen(false);
 		navigate(path, { state: { noTransition: true } });
 	};
