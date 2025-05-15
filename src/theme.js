@@ -68,6 +68,7 @@ theme.components = {
                 },
                 "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
                     animationDuration: rippleEffectSpeed,
+                    animationTimingFunction: 'ease-out',
                 },
             },
         },
