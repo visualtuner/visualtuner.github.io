@@ -2,9 +2,9 @@ import { createTheme } from "@mui/material/styles";
 
 const rippleEffectSpeed = "0.3s";
 
-const theme = createTheme({
+const baseTheme = createTheme({
 	palette: {
-		mode: "light", // 또는 'dark'
+		mode: "light",
 		primary: {
 			light: "#757ce8",
 			main: "#3f50b5",
@@ -17,18 +17,10 @@ const theme = createTheme({
 			dark: "#ba000d",
 			contrastText: "#000",
 		},
-		error: {
-			main: "#f44336",
-		},
-		warning: {
-			main: "#ffa726",
-		},
-		info: {
-			main: "#29b6f6",
-		},
-		success: {
-			main: "#66bb6a",
-		},
+		error: { main: "#f44336" },
+		warning: { main: "#ffa726" },
+		info: { main: "#29b6f6" },
+		success: { main: "#66bb6a" },
 		background: {
 			default: "#f5f5f5",
 			paper: "#ffffff",
@@ -41,145 +33,166 @@ const theme = createTheme({
 	typography: {
 		fontFamily:
 			'"Pretendard", "Noto Sans KR", "Roboto", "Arial", sans-serif',
-		fontSize: 14, // 기본 폰트 크기 (1rem = 14px)
+		fontSize: 14,
 	},
 	breakpoints: {
 		values: {
-			xs: 0, // mobile
-			sm: 768, // tablet
-			md: 1280, // desktop
-			lg: 1600, // large desktop
+			xs: 0,
+			sm: 768,
+			md: 1280,
+			lg: 1600,
 			xl: 1920,
 		},
 	},
 });
 
-theme.components = {
-    MuiButtonBase: {
-        styleOverrides: {
-            root: {
-                transition: `transform 0.1s ease !important`,
-                "&:active": {
-                    transition: `transform 0.1s ease`,
-                    transform: "translateZ(0) scale(0.95)",
-                },
-                "& .MuiTouchRipple-root": {
-                    opacity: 0.8,
-                },
-                "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
-                    animationDuration: rippleEffectSpeed,
-                    animationTimingFunction: 'cubic-bezier(0, 0.75, 0.5, 1)',
-                },
-            },
-        },
-    },
-    MuiButton: {
-        styleOverrides: {
-            root: {
-                boxShadow: "none", // 기본 그림자 제거
-                "&:hover": {
-                    boxShadow: "none", // hover 시 생기는 그림자도 제거
-                },
-                "&:active": {
-                    boxShadow: "none", // active 시 생기는 그림자도 제거
-                },
-                "&.Mui-focusVisible": {
-                    boxShadow: "none", // focus 시 생기는 그림자 제거 (keyboard focus 등)
-                },
-            },
-            containedPrimary: {
-                "&:hover": {
-                    backgroundColor: theme.palette.primary.main,
-                },
-            },
-            containedSecondary: {
-                "&:hover": {
-                    backgroundColor: theme.palette.secondary.main,
-                },
-            },
-            sizeSmall: {
-                height: "32px",
-                minHeight: "32px",
-                padding: "0 12px",
-                fontSize: "12px",
-                borderRadius: "4px",
-            },
-            sizeMedium: {
-                height: "44px",
-                minHeight: "44px",
-                padding: "0 16px",
-                fontSize: "14px",
-                borderRadius: "6px",
-            },
-            sizeLarge: {
-                height: "56px",
-                minHeight: "56px",
-                padding: "0 20px",
-                fontSize: "16px",
-                borderRadius: "8px",
-            },
-        },
-    },
-    MuiIconButton: {
-        styleOverrides: {
-            sizeSmall: {
-                fontSize: "20px",
-                width: "32px",
-                height: "32px",
-            },
-            sizeMedium: {
-                fontSize: "24px",
-                width: "44px",
-                height: "44px",
-            },
-            sizeLarge: {
-                fontSize: "28px",
-                width: "56px",
-                height: "56px",
-            },
-        },
-    },
-    MuiSvgIcon: {
-        styleOverrides: {
-            fontSizeSmall: {
-                fontSize: "20px",
-            },
-            fontSizeMedium: {
-                fontSize: "24px",
-            },
-            fontSizeLarge: {
-                fontSize: "28px",
-            },
-        },
-    },
-
-    MuiCheckbox: {
-        styleOverrides: {
-            root: {
-                "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
-                    animationDuration: rippleEffectSpeed,
-                },
-            },
-        },
-    },
-    MuiRadio: {
-        styleOverrides: {
-            root: {
-                "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
-                    animationDuration: rippleEffectSpeed,
-                },
-            },
-        },
-    },
-    MuiSwitch: {
-        styleOverrides: {
-            root: {
-                "& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
-                    animationDuration: rippleEffectSpeed,
-                },
-            },
-        },
-    },
-};
+const theme = createTheme(baseTheme, {
+	components: {
+		MuiButtonBase: {
+			styleOverrides: {
+				root: {
+					transition: `transform 0.1s ease !important`,
+					"&:active": {
+						transition: `transform 0.1s ease`,
+						transform: "translateZ(0) scale(0.95)",
+					},
+					"& .MuiTouchRipple-root": {
+						opacity: 0.8,
+					},
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+						animationTimingFunction:
+							"cubic-bezier(0, 0.75, 0.5, 1)",
+					},
+				},
+			},
+		},
+		MuiButton: {
+			styleOverrides: {
+				root: {
+					boxShadow: "none",
+					"&:hover": { boxShadow: "none" },
+					"&:active": { boxShadow: "none" },
+					"&.Mui-focusVisible": { boxShadow: "none" },
+				},
+				containedPrimary: ({ theme }) => ({
+					[theme.breakpoints.down("md")]: {
+						"&:hover": {
+							backgroundColor: theme.palette.primary.main,
+						},
+					},
+				}),
+				containedSecondary: ({ theme }) => ({
+					[theme.breakpoints.down("md")]: {
+						"&:hover": {
+							backgroundColor: theme.palette.secondary.main,
+						},
+					},
+				}),
+				text: ({ theme }) => ({
+					[theme.breakpoints.down("md")]: {
+						"&:hover": {
+							backgroundColor: "transparent",
+						},
+					},
+				}),
+				outlined: ({ theme }) => ({
+					[theme.breakpoints.down("md")]: {
+						"&:hover": {
+							backgroundColor: "transparent",
+						},
+					},
+				}),
+				sizeSmall: {
+					height: "32px",
+					minHeight: "32px",
+					padding: "0 12px",
+					fontSize: "12px",
+					borderRadius: "4px",
+				},
+				sizeMedium: {
+					height: "44px",
+					minHeight: "44px",
+					padding: "0 16px",
+					fontSize: "14px",
+					borderRadius: "6px",
+				},
+				sizeLarge: {
+					height: "56px",
+					minHeight: "56px",
+					padding: "0 20px",
+					fontSize: "16px",
+					borderRadius: "8px",
+				},
+			},
+		},
+		MuiIconButton: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					[theme.breakpoints.down("md")]: {
+						"&:hover": {
+							backgroundColor: "transparent",
+						},
+					},
+				}),
+				sizeSmall: {
+					fontSize: "20px",
+					width: "32px",
+					height: "32px",
+				},
+				sizeMedium: {
+					fontSize: "24px",
+					width: "44px",
+					height: "44px",
+				},
+				sizeLarge: {
+					fontSize: "28px",
+					width: "56px",
+					height: "56px",
+				},
+			},
+		},
+		MuiSvgIcon: {
+			styleOverrides: {
+				fontSizeSmall: {
+					fontSize: "20px",
+				},
+				fontSizeMedium: {
+					fontSize: "24px",
+				},
+				fontSizeLarge: {
+					fontSize: "28px",
+				},
+			},
+		},
+		MuiCheckbox: {
+			styleOverrides: {
+				root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
+				},
+			},
+		},
+		MuiRadio: {
+			styleOverrides: {
+				root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
+				},
+			},
+		},
+		MuiSwitch: {
+			styleOverrides: {
+				root: {
+					"& .MuiTouchRipple-root .MuiTouchRipple-ripple": {
+						animationDuration: rippleEffectSpeed,
+					},
+				},
+			},
+		},
+	},
+});
 
 export default theme;
