@@ -7,10 +7,16 @@ export default function useDrawerNavigation() {
 	const location = useLocation();
 
 	const navigateWithClose = (path) => {
+		if (location.pathname === path) {
+			// 같은 경로일 경우 드로어만 닫기
+			setDrawerOpen(false);
+			return;
+		}
+
+		// 다른 경로일 때만 이동 + 드로어 닫기
 		setDrawerOpen(false);
-        if (location.pathname === path) return;
 		navigate(path, { state: { noTransition: true } });
 	};
 
-	return { navigateWithClose };   
+	return { navigateWithClose };
 }
