@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 export default function Components() {
@@ -14,7 +15,20 @@ export default function Components() {
             </Header>
             <h1>Components</h1>
 			<p>컴포넌트 디자인 나열</p>
-            <Stack direction="row" spacing={1} sx={{ px: 2 }}>
+            <Stack spacing={1} sx={{ px: 2, mt: 3 }}>
+                <TextField
+                    placeholder="입력하세요"
+                    variant="outlined"
+                    size="small"
+                />
+                <TextField
+                    placeholder="입력하세요"
+                    variant="outlined"
+                    size="medium"
+                />
+            </Stack>
+
+            <Stack direction="row" spacing={1} sx={{ px: 2, mt: 3 }}>
                 <Button size="small" variant="contained" color="primary" onClick={() => navigate('/Components/Buttons')}>
                     Buttons
                 </Button>

@@ -74,7 +74,7 @@ const theme = createTheme(baseTheme, {
 					"&:hover": { boxShadow: "none" },
 					"&:active": { boxShadow: "none" },
 					"&.Mui-focusVisible": { boxShadow: "none" },
-                    "&.MuiButton--circle": {
+					"&.MuiButton--circle": {
 						borderRadius: "200px",
 					},
 				},
@@ -112,17 +112,17 @@ const theme = createTheme(baseTheme, {
 					padding: "0 12px",
 					fontSize: "12px",
 					borderRadius: "8px",
-                    "& .MuiSvgIcon-root": {
-                        fontSize: "20px !important",
-                    },
-                    "& .MuiButton-startIcon": {
-                        marginLeft: "-4px",
-                        marginRight: "4px",
-                    },
-                    "& .MuiButton-endIcon": {
-                        marginLeft: "4px",
-                        marginRight: "-4px",
-                    },
+					"& .MuiSvgIcon-root": {
+						fontSize: "20px !important",
+					},
+					"& .MuiButton-startIcon": {
+						marginLeft: "-4px",
+						marginRight: "4px",
+					},
+					"& .MuiButton-endIcon": {
+						marginLeft: "4px",
+						marginRight: "-4px",
+					},
 				},
 				sizeMedium: {
 					height: "44px",
@@ -130,17 +130,17 @@ const theme = createTheme(baseTheme, {
 					padding: "0 20px",
 					fontSize: "14px",
 					borderRadius: "12px",
-                    "& .MuiSvgIcon-root": {
-                        fontSize: "24px !important",
-                    },
-                    "& .MuiButton-startIcon": {
-                        marginLeft: "-6px",
-                        marginRight: "6px",
-                    },
-                    "& .MuiButton-endIcon": {
-                        marginLeft: "6px",
-                        marginRight: "-6px",
-                    },
+					"& .MuiSvgIcon-root": {
+						fontSize: "24px !important",
+					},
+					"& .MuiButton-startIcon": {
+						marginLeft: "-6px",
+						marginRight: "6px",
+					},
+					"& .MuiButton-endIcon": {
+						marginLeft: "6px",
+						marginRight: "-6px",
+					},
 				},
 				sizeLarge: {
 					height: "56px",
@@ -148,17 +148,17 @@ const theme = createTheme(baseTheme, {
 					padding: "0 24px",
 					fontSize: "16px",
 					borderRadius: "16px",
-                    "& .MuiSvgIcon-root": {
-                        fontSize: "28px !important",
-                    },
-                    "& .MuiButton-startIcon": {
-                        marginLeft: "-8px",
-                        marginRight: "8px",
-                    },
-                    "& .MuiButton-endIcon": {
-                        marginLeft: "8px",
-                        marginRight: "-8px",
-                    },
+					"& .MuiSvgIcon-root": {
+						fontSize: "28px !important",
+					},
+					"& .MuiButton-startIcon": {
+						marginLeft: "-8px",
+						marginRight: "8px",
+					},
+					"& .MuiButton-endIcon": {
+						marginLeft: "8px",
+						marginRight: "-8px",
+					},
 				},
 			},
 		},
@@ -229,6 +229,45 @@ const theme = createTheme(baseTheme, {
 						animationTimingFunction: reppleEffectEasing,
 					},
 				},
+			},
+		},
+		MuiOutlinedInput: {
+			styleOverrides: {
+				root: ({ theme }) => ({
+					"& .MuiOutlinedInput-notchedOutline": {
+						borderColor: theme.palette.grey[400], // 기본 테두리
+					},
+					"&:hover .MuiOutlinedInput-notchedOutline": {
+						borderColor: theme.palette.primary.light, // 호버 테두리
+					},
+					"&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+						borderColor: theme.palette.primary.main, // 포커스 테두리
+						borderWidth: "1px",
+					},
+                    "&.MuiOutlinedInput--circle": {
+						borderRadius: "200px",
+					},
+                    height: "44px",
+                    fontSize: "14px",
+					borderRadius: "12px",
+                    '& input': {
+                        padding: "12px 20px",
+                        lineHeight: "20px",
+                        height: "44px",
+                        boxSizing: "border-box",
+                    },
+				}),
+                sizeSmall: {
+                    height: "36px",
+                    fontSize: "13px",
+                    borderRadius: "8px",
+                    '& input': {
+                        padding: "8px 12px",
+                        lineHeight: "20px",
+                        height: "36px",
+                        boxSizing: "border-box",
+                    },
+                },
 			},
 		},
 	},
