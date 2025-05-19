@@ -56,10 +56,10 @@ export default function SideDrawer({ isOpen, onClose }) {
 
 	const handleSwiperSetup = (swiper) => {
 		swiperRef.current = swiper;
-		/*swiper.on("progress", () => {
+		swiper.on("progress", () => {
 			const prog = swiper.progress;
 			setOpacity(1 - Math.max(0, Math.min(1, prog)));
-		});*/
+		});
 		swiper.on("touchStart", () => backdropRef.current?.classList.add("dragging"));
 		swiper.on("touchEnd", () => backdropRef.current?.classList.remove("dragging"));
 		swiper.on("transitionEnd", () => {
