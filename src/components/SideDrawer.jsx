@@ -73,7 +73,7 @@ export default function SideDrawer({ isOpen, onClose }) {
 			<Swiper
 				initialSlide={isOpen ? 0 : 1}
 				slidesPerView="auto"
-				threshold={20}
+				threshold={0}
                 resistanceRatio={0}
 				allowTouchMove
 				touchStartPreventDefault={false}
