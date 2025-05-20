@@ -13,7 +13,7 @@ export default function SideDrawer({ isOpen, onClose }) {
 
 	const handleCloseDrawer = useCallback(() => {
 		if (window.history.state?.drawer === true) {
-			window.history.back(); // 핵심: replace가 아니라 go back
+			window.history.back();
 			return;
 		}
 		onClose?.();
@@ -29,9 +29,10 @@ export default function SideDrawer({ isOpen, onClose }) {
 	// 드로어 열릴 때 pushState
 	useEffect(() => {
         if (isOpen) {
-            window.history.pushState({ drawer: true }, "");
+            if (window.history.state?.drawer !== true) {
+                window.history.pushState({ drawer: true }, "");
+            }
         } else {
-            // push된 drawer 상태라면 back으로 지우기
             if (window.history.state?.drawer === true) {
                 window.history.back();
             }
