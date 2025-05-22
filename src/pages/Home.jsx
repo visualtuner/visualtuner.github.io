@@ -10,7 +10,7 @@ export default function Home() {
 		<>
 			<Header >
                 <p>홈</p>
-                <IconButton aria-label="global side drawer" onClick={() => setDrawerOpen(true)}
+                <IconButton aria-label="global side drawer" onClick={() => setDrawerOpen("side", true)}
                     sx={{
                         color: '#000',
                         '& .MuiButton-startIcon, & .MuiButton-endIcon': {

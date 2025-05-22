@@ -1,25 +1,21 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import { useDrawer } from "../contexts/DrawerContext";
 import useDrawerController from "../hooks/useDrawerController";
-import useDrawerNavigation from "../hooks/useDrawerNavigation";
 
-export default function SideDrawer() {
+export default function BottomDrawer() {
 	const swiperRef = useRef(null);
 	const backdropRef = useRef(null);
 	const [opacity, setOpacity] = useState(1);
 
 	const { drawers, setDrawerOpen } = useDrawer();
-	const isOpen = drawers.side;
-	const { navigateWithClose } = useDrawerNavigation("side");
+	const isOpen = drawers.bottom;
 
 	const { handleClose } = useDrawerController({
 		isOpen,
-		onClose: () => setDrawerOpen("side", false),
-		drawerKey: "sideDrawer"
+		onClose: () => setDrawerOpen("bottom", false),
+		drawerKey: "bottomDrawer"
 	});
 
 	useEffect(() => {
@@ -43,9 +39,10 @@ export default function SideDrawer() {
 	};
 
 	return (
-		<div className="side-drawer-wrapper" style={{ pointerEvents: isOpen ? "auto" : "none" }}>
+		<div className="bottom-drawer-wrapper" style={{ pointerEvents: isOpen ? "auto" : "none" }}>
 			<Swiper
 				initialSlide={isOpen ? 0 : 1}
+				direction="vertical"
 				slidesPerView="auto"
 				threshold={0}
 				resistanceRatio={0}
@@ -53,14 +50,14 @@ export default function SideDrawer() {
 				touchStartPreventDefault={false}
 				grabCursor
 				onSwiper={handleSwiperSetup}
-				className="side-drawer-swiper"
+				className="bottom-drawer-swiper"
 			>
 				<SwiperSlide className="drawer-panel">
-					<Stack spacing={2} sx={{ px: 2, py: 3 }}>
-						<Button color="primary" onClick={() => navigateWithClose('/')}>Home</Button>
-						<Button color="primary" onClick={() => navigateWithClose('/Components')}>Components</Button>
-						<Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>Buttons</Button>
-					</Stack>
+					<div style={{ padding: 20 }}>
+						<h3>Bottom Drawer</h3>
+						<p>This is a bottom drawer example using Swiper.js</p>
+						<button onClick={handleClose}>Close</button>
+					</div>
 				</SwiperSlide>
 
 				<SwiperSlide className="drawer-backdrop-slide">

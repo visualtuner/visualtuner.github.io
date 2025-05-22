@@ -1,32 +1,59 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import { useDrawer } from "../contexts/DrawerContext";
-import useDrawerController from "../hooks/useDrawerController";
 import useDrawerNavigation from "../hooks/useDrawerNavigation";
 
-export default function SideDrawer() {
+export default function SideDrawer({ isOpen, onClose }) {
 	const swiperRef = useRef(null);
 	const backdropRef = useRef(null);
-	const [opacity, setOpacity] = useState(1);
+	const [opacity, setOpacity] = useState(isOpen ? 1 : 0);
+	const { navigateWithClose } = useDrawerNavigation();
 
-	const { drawers, setDrawerOpen } = useDrawer();
-	const isOpen = drawers.side;
-	const { navigateWithClose } = useDrawerNavigation("side");
+	const handleCloseDrawer = useCallback(() => {
+		if (window.history.state?.drawer === true) {
+			window.history.back();
+			return;
+		}
+		onClose?.();
+	}, [onClose]);
 
-	const { handleClose } = useDrawerController({
-		isOpen,
-		onClose: () => setDrawerOpen("side", false),
-		drawerKey: "sideDrawer"
-	});
-
+	// Swiper 슬라이드 이동
 	useEffect(() => {
 		const swiper = swiperRef.current;
 		if (!swiper) return;
 		isOpen ? swiper.slideTo(0) : swiper.slideTo(1);
 	}, [isOpen]);
+
+	// 드로어 열릴 때 pushState
+	useEffect(() => {
+        if (isOpen) {
+            if (window.history.state?.drawer !== true) {
+                window.history.pushState({ drawer: true }, "");
+            }
+        } else {
+            if (window.history.state?.drawer === true) {
+                window.history.back();
+            }
+        }
+    }, [isOpen]);
+
+	// 뒤로가기 → 드로어 닫기
+	useEffect(() => {
+        const handlePop = () => {
+            const isDrawerOpen = isOpen;
+            const state = window.history.state;
+
+            if (isDrawerOpen && state?.drawer === undefined) {
+                // drawer가 열려 있었고, 이전 상태에는 drawer가 없음 → 닫기
+                handleCloseDrawer();
+            }
+        };
+
+        window.addEventListener("popstate", handlePop);
+        return () => window.removeEventListener("popstate", handlePop);
+    }, [isOpen, handleCloseDrawer]);
 
 	const handleSwiperSetup = (swiper) => {
 		swiperRef.current = swiper;
@@ -38,7 +65,7 @@ export default function SideDrawer() {
 		swiper.on("touchEnd", () => backdropRef.current?.classList.remove("dragging"));
 		swiper.on("transitionEnd", () => {
 			backdropRef.current?.classList.remove("dragging");
-			if (swiper.activeIndex === 1) handleClose();
+			if (swiper.activeIndex === 1) handleCloseDrawer();
 		});
 	};
 
@@ -48,7 +75,7 @@ export default function SideDrawer() {
 				initialSlide={isOpen ? 0 : 1}
 				slidesPerView="auto"
 				threshold={0}
-				resistanceRatio={0}
+                resistanceRatio={0}
 				allowTouchMove
 				touchStartPreventDefault={false}
 				grabCursor
@@ -70,7 +97,7 @@ export default function SideDrawer() {
 						style={{ opacity }}
 						onClick={() => {
 							swiperRef.current?.slideTo(1);
-							handleClose();
+							handleCloseDrawer();
 						}}
 					/>
 				</SwiperSlide>

@@ -1,20 +1,26 @@
 import { useDrawer } from "../contexts/DrawerContext";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export default function useDrawerNavigation(drawerKey = "side") {
+export default function useDrawerNavigation() {
 	const { setDrawerOpen } = useDrawer();
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const navigateWithClose = (path) => {
 		const isSamePath = location.pathname === path;
+		const isDrawerPushed = window.history.state?.drawer === true;
 
-		// 드로어 닫기
-		setDrawerOpen(drawerKey, false); // ✅ 핵심
-
-		if (!isSamePath) {
-			navigate(path, { state: { noTransition: true } });
+		if (!isSamePath && !isDrawerPushed) {
+			window.history.pushState({ drawer: true }, "");
 		}
+
+		if (isSamePath) {
+			setDrawerOpen(false);
+			return;
+		}
+
+		setDrawerOpen(false);
+		navigate(path, { state: { noTransition: true } });
 	};
 
 	return { navigateWithClose };
