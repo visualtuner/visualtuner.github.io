@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDrawer } from "../contexts/DrawerContext";
+import { useOverlay } from "../contexts/OverlayContext";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -12,11 +12,10 @@ export default function Components() {
     const navigate = useNavigate();
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
-    const { openDrawer } = useDrawer();
+    const { openOverlay } = useOverlay();
 
-    // 사이드 드로어를 여는 올바른 함수
     const handleOpenSideDrawer = () => {
-        openDrawer("mainSideDrawer"); // SideDrawer에 부여한 고유 ID를 전달합니다.
+        openOverlay("drawer", "mainSideDrawer"); // 타입("drawer")과 ID("mainSideDrawer")를 전달합니다.
     };
     
     return (

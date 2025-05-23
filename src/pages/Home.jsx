@@ -1,15 +1,18 @@
 import Header from "../components/Header";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useDrawer } from "../contexts/DrawerContext";
+import { useOverlay } from "../contexts/OverlayContext";
 
 export default function Home() {
-    // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
-    const { openDrawer } = useDrawer();
+    const { openOverlay } = useOverlay();
 
-    // 사이드 드로어를 여는 올바른 함수
     const handleOpenSideDrawer = () => {
-        openDrawer("mainSideDrawer"); // SideDrawer에 부여한 고유 ID를 전달합니다.
+        openOverlay("drawer", "mainSideDrawer"); // 타입("drawer")과 ID("mainSideDrawer")를 전달합니다.
+    };
+
+    // 모달을 여는 함수 추가
+    const handleOpenLoginModal = () => {
+        openOverlay("modal", "myLoginModal"); // 타입("modal")과 ID("myLoginModal")를 전달합니다.
     };
 
     return (
@@ -29,6 +32,7 @@ export default function Home() {
             </Header>
             <h1>Home</h1>
             <p>헬로 리액트</p>
+            <button onClick={handleOpenLoginModal}>로그인 모달 열기</button>
         </>
     );
 }
