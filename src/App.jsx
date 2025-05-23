@@ -17,12 +17,12 @@ export default function App() {
 }
 
 function DrawerWrapper() {
-	const { isDrawerOpen, setDrawerOpen } = useDrawer();
+    const { openDrawerId, closeDrawer } = useDrawer();
 
-	return (
-		<SideDrawer
-			isOpen={isDrawerOpen}
-			onClose={() => setDrawerOpen(false)}
-		/>
-	);
+    return (
+        <SideDrawer
+            isOpen={openDrawerId === "mainSideDrawer"} // openDrawerId가 "mainSideDrawer"일 때만 isOpen이 true가 됩니다.
+            onClose={closeDrawer}
+        />
+    );
 }

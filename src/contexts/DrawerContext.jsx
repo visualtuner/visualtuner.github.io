@@ -1,24 +1,30 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 
+// 1. Context 생성
 const DrawerContext = createContext();
 
+// 2. 커스텀 훅
 export function useDrawer() {
-	return useContext(DrawerContext);
+    return useContext(DrawerContext);
 }
 
+// 3. Provider 컴포넌트
 export function DrawerProvider({ children }) {
-	const [drawers, setDrawers] = useState({
-		side: false,
-		bottom: false,
-	});
+    const [openDrawerId, setOpenDrawerId] = useState(null); // 현재 열려 있는 드로어의 ID를 저장합니다.
 
-	const setDrawerOpen = (key, open) => {
-		setDrawers((prev) => ({ ...prev, [key]: open }));
-	};
+    // 드로어를 여는 함수
+    const openDrawer = useCallback((id) => {
+        setOpenDrawerId(id);
+    }, []);
 
-	return (
-		<DrawerContext.Provider value={{ drawers, setDrawerOpen }}>
-			{children}
-		</DrawerContext.Provider>
-	);
+    // 드로어를 닫는 함수
+    const closeDrawer = useCallback(() => {
+        setOpenDrawerId(null);
+    }, []);
+
+    return (
+        <DrawerContext.Provider value={{ openDrawerId, openDrawer, closeDrawer }}>
+            {children}
+        </DrawerContext.Provider>
+    );
 }
