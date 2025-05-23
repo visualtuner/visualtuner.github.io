@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 
-const rippleEffectSpeed = "0.3s";
+const rippleEffectSpeed = "0.4s";
 const reppleEffectEasing = "cubic-bezier(0, 0.75, 0.5, 1)";
 
 const baseTheme = createTheme({

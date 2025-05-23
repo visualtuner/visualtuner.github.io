@@ -39,7 +39,7 @@ export default function usePageTransition(location, navigationType, rootMenus = 
 		transitionClassNames = "";
 	}
 
-	const transitionTimeout = noTransition ? 0 : needTransition ? 300 : 0;
+	const transitionTimeout = noTransition ? 0 : needTransition ? 400 : 0;
 	const pageTypeClass = isToRoot ? "page--root" : "page--sub";
 
 	return {
