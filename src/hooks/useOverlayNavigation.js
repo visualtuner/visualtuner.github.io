@@ -68,9 +68,12 @@ export default function useOverlayNavigation() {
             // 그 히스토리 엔트리를 제거하기 위해 `window.history.back()`을 직접 호출합니다.
             // 단, `window.history.state`를 확인하여 현재 최상단 상태가 오버레이에 대한 것일 때만 수행합니다.
             // (즉, 뒤로가기를 누르면 오버레이가 닫히는 상황)
-            if (window.history.state?.overlayType !== undefined && window.history.state?.overlayId !== undefined) {
-                 window.history.back();
-            }
+            if (
+				window.history.state?.overlayType !== undefined &&
+				window.history.state?.overlayId !== undefined
+			) {
+				window.history.back();
+			}
             return; // 라우팅 없이 함수 종료
         }
 
