@@ -1,9 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./routes/AppRouter";
 import NavBar from "./components/NavBar";
-import SideDrawer from "./components/SideDrawer";
-import { OverlayProvider, useOverlay } from "./contexts/OverlayContext";
-import MyModalComponent from "./components/MyModalComponent"; // 모달 컴포넌트 임포트
+import { OverlayProvider } from "./contexts/OverlayContext";
 
 export default function App() {
     return (
@@ -11,31 +9,9 @@ export default function App() {
             <OverlayProvider>
                 <AppRouter />
                 <NavBar />
-                <SideDrawerWrapper />
-                <ModalWrapper />
+                {/* SideDrawerWrapper나 ModalWrapper는 더 이상 필요 없습니다.
+                    OverlayProvider 내부의 OverlayContainer가 모든 오버레이를 렌더링합니다. */}
             </OverlayProvider>
         </BrowserRouter>
-    );
-}
-
-function SideDrawerWrapper() {
-    const { isOverlayOpen, closeOverlay } = useOverlay();
-
-    return (
-        <SideDrawer
-            isOpen={isOverlayOpen("drawer", "mainSideDrawer")}
-            onClose={() => closeOverlay("drawer", "mainSideDrawer")}
-        />
-    );
-}
-
-function ModalWrapper() {
-    const { isOverlayOpen, closeOverlay } = useOverlay();
-
-    return (
-        <MyModalComponent
-            isOpen={isOverlayOpen("modal", "myLoginModal")}
-            onClose={() => closeOverlay("modal", "myLoginModal")}
-        />
     );
 }

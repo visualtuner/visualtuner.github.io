@@ -1,18 +1,31 @@
 import Header from "../components/Header";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useOverlay } from "../contexts/OverlayContext";
+import { useOverlay } from "../contexts/OverlayContext"; // OverlayContext에서 useOverlay 훅 임포트
+import SideDrawer from "../components/SideDrawer"; // SideDrawer 컴포넌트 임포트
+import MyModalComponent from "../components/MyModalComponent"; // MyModalComponent 임포트
 
 export default function Home() {
-    const { openOverlay } = useOverlay();
+    const { openOverlay } = useOverlay(); // OverlayContext에서 openOverlay 함수 가져오기
 
+    // 사이드 드로어를 여는 핸들러 함수
     const handleOpenSideDrawer = () => {
-        openOverlay("drawer", "mainSideDrawer"); // 타입("drawer")과 ID("mainSideDrawer")를 전달합니다.
+        // openOverlay 호출 시:
+        // - "drawer": 오버레이의 타입 (임의로 지정)
+        // - "mainSideDrawer": 오버레이의 고유 ID (같은 타입 내에서 유일해야 함)
+        // - SideDrawer: 렌더링할 실제 컴포넌트
+        // - { someCustomProp: "value" }: SideDrawer 컴포넌트에 전달할 추가 props (선택 사항)
+        openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });
     };
 
-    // 모달을 여는 함수 추가
+    // 로그인 모달을 여는 핸들러 함수
     const handleOpenLoginModal = () => {
-        openOverlay("modal", "myLoginModal"); // 타입("modal")과 ID("myLoginModal")를 전달합니다.
+        // openOverlay 호출 시:
+        // - "modal": 오버레이의 타입
+        // - "myLoginModal": 오버레이의 고유 ID
+        // - MyModalComponent: 렌더링할 실제 컴포넌트
+        // - { initialData: "login" }: MyModalComponent에 전달할 추가 props
+        openOverlay("modal", "myLoginModal", MyModalComponent, { initialData: "login" });
     };
 
     return (

@@ -7,15 +7,16 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import SideDrawer from "../components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
 
 export default function Components() {
     const navigate = useNavigate();
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();
-
+    
     const handleOpenSideDrawer = () => {
-        openOverlay("drawer", "mainSideDrawer"); // 타입("drawer")과 ID("mainSideDrawer")를 전달합니다.
+        openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });
     };
     
     return (
