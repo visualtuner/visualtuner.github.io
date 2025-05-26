@@ -102,8 +102,8 @@ export function OverlayProvider({ children }) {
 
     return (
         <OverlayContext.Provider value={value}>
-            {children} {/* Provider의 자식 컴포넌트들이 여기에 렌더링됩니다. */}
-            <OverlayContainer /> {/* 모든 오버레이를 실제로 렌더링하는 컴포넌트 */}
+            {children}
+            <OverlayContainer />
         </OverlayContext.Provider>
     );
 }
