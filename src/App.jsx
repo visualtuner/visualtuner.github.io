@@ -9,8 +9,6 @@ export default function App() {
             <OverlayProvider>
                 <AppRouter />
                 <NavBar />
-                {/* SideDrawerWrapper나 ModalWrapper는 더 이상 필요 없습니다.
-                    OverlayProvider 내부의 OverlayContainer가 모든 오버레이를 렌더링합니다. */}
             </OverlayProvider>
         </BrowserRouter>
     );
