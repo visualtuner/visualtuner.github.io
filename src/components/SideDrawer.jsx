@@ -5,8 +5,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import useOverlayNavigation from "../hooks/useOverlayNavigation";
-import useOverlayHistory from "../hooks/useOverlayHistory";
+import useOverlayNavigation from "@/hooks/useOverlayNavigation";
+import useOverlayHistory from "@/hooks/useOverlayHistory";
 
 export default function SideDrawer({ isOpen, onClose, id, overlayType, someCustomProp, ...restProps }) {
     const swiperRef = useRef(null);
@@ -87,6 +87,7 @@ export default function SideDrawer({ isOpen, onClose, id, overlayType, someCusto
                         <Button color="primary" onClick={() => navigateWithClose('/')}>Home</Button>
                         <Button color="primary" onClick={() => navigateWithClose('/Components')}>Components</Button>
                         <Button color="primary" onClick={() => navigateWithClose('/Components/Buttons')}>Buttons</Button>
+                        <Button color="primary" onClick={() => navigateWithClose('/Profiles', { state: { transitionClassName: 'slideup' }})}>Profiles</Button>
                         <Button color="secondary" onClick={handleCloseButtonClick}>드로어 닫기</Button>
                     </Stack>
                 </SwiperSlide>

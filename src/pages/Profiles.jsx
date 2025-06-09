@@ -4,7 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-export default function Buttons() {
+export default function Profiles() {
     const navigate = useNavigate();
     
     return (
@@ -20,10 +20,10 @@ export default function Buttons() {
                 >
                     <ArrowBackIcon />
                 </IconButton>
-                <p>버튼</p>
+                <p>프로필</p>
             </Header>
-            <h1>Buttons Page</h1>
-			<p>버튼 디자인 모음</p>
+            <h1>Profiles Page</h1>
+			<p>팝 트랜지션 예시 페이지</p>
         </Box>
     );
 }

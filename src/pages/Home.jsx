@@ -1,9 +1,10 @@
-import Header from "../components/Header";
 import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useOverlay } from "../contexts/OverlayContext"; // OverlayContext에서 useOverlay 훅 임포트
-import SideDrawer from "../components/SideDrawer"; // SideDrawer 컴포넌트 임포트
-import MyModalComponent from "../components/MyModalComponent"; // MyModalComponent 임포트
+import { useOverlay } from "@/contexts/OverlayContext"; // OverlayContext에서 useOverlay 훅 임포트
+import Header from "@/components/Header";
+import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트 임포트
+import MyModalComponent from "@/components/MyModalComponent"; // MyModalComponent 임포트
 
 export default function Home() {
     const { openOverlay } = useOverlay(); // OverlayContext에서 openOverlay 함수 가져오기
@@ -29,7 +30,7 @@ export default function Home() {
     };
 
     return (
-        <>
+        <Box className="layout">
             <Header >
                 <IconButton aria-label="global side drawer" onClick={handleOpenSideDrawer}
                     sx={{
@@ -46,6 +47,6 @@ export default function Home() {
             <h1>Home</h1>
             <p>헬로 리액트</p>
             <button onClick={handleOpenLoginModal}>로그인 모달 열기</button>
-        </>
+        </Box>
     );
 }

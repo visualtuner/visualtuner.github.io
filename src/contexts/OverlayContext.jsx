@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useRef, useEffect } from "react";
+import { createContext, useContext, useState, useCallback } from "react";
 
 // OverlayContext 생성: 이 Context를 통해 오버레이 관련 상태와 함수에 접근합니다.
 export const OverlayContext = createContext();

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import useOverlayHistory from '../hooks/useOverlayHistory';
+import useOverlayHistory from '@/hooks/useOverlayHistory';
 
 // MyModalComponent 컴포넌트: React 오버레이 시스템에 통합됩니다.
 // - isOpen: OverlayContainer에서 전달받는 prop. false이면 닫힘 애니메이션 시작.

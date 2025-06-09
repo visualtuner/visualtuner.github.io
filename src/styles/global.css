@@ -1,4 +1,4 @@
-@import '../fonts/Pretendard/pretendardvariable.css';
+@import '@/assets/fonts/Pretendard/pretendardvariable.css';
 
 :root {
     --layer-z-index-root: auto;
@@ -155,6 +155,23 @@ button {
 
 
 .page {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    z-index: calc(var(--layer-z-index) + var(--transition-z-index));
+    --transition-duration: 300ms 100ms;
+    --transition-easing: cubic-bezier(1.000, 0.000, 0.070, 1.000);
+    --transition-z-index: 0;
+}
+
+.layout {
     display: flex;
     width: 100%;
     height: 100%;
@@ -166,12 +183,8 @@ button {
     bottom: 0;
     overflow: auto;
     background: #fff;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
     padding-top: 60px;
-    z-index: calc(var(--layer-z-index) + var(--transition-z-index));
-    --transition-duration: 300ms 100ms;
-    --transition-easing: cubic-bezier(1.000, 0.000, 0.070, 1.000);
-    --transition-z-index: 0;
+    padding-bottom: 80px;
 }
 
 .page--root {
@@ -182,15 +195,15 @@ button {
     --layer-z-index: var(--layer-z-index-sub);
 }
 
-/* 앞으로 가기 애니메이션 */
+/* 기본 라우팅 앞으로 가기 애니메이션 */
 .page-forward-enter {
     --transition-z-index: 1;
     opacity: 0;
-    transform: translateY(200px) translateZ(0);
+    transform: translateX(100%) translateZ(0);
 }
 
 .page-forward-enter-active {
-    transform: translateY(0) translateZ(0);
+    transform: translateX(0) translateZ(0);
     opacity: 1;
     transition: all var(--transition-duration) var(--transition-easing);
 }
@@ -198,45 +211,106 @@ button {
 .page-forward-exit {
     --transition-z-index: 0;
     opacity: 1;
-    transform: translateY(0) translateZ(0);
+    transform: translateX(0) translateZ(0);
 }
 
 .page-forward-exit-active {
     opacity: 0;
-    transform: translateY(-20px) translateZ(0);
+    transform: translateX(-20px) translateZ(0);
     transition: all var(--transition-duration) var(--transition-easing);
 }
 
 .page-forward-enter-done { --transition-z-index: 1; }
 .page-forward-exit-done { --transition-z-index: 0; }
 
-/* 뒤로 가기 애니메이션 */
+/* 기본 라우팅 뒤로 가기 애니메이션 */
 .page-back-enter {
     --transition-z-index: 0;
     opacity: 0;
-    transform: translateY(-20px) translateZ(0);
+    transform: translateX(-20px) translateZ(0);
 }
 
 .page-back-enter-active {
     opacity: 1;
-    transform: translateY(0) translateZ(0);
+    transform: translateX(0) translateZ(0);
     transition: all var(--transition-duration) var(--transition-easing);
 }
 
 .page-back-exit {
     --transition-z-index: 1;
     opacity: 1;
-    transform: translateY(0) translateZ(0);
+    transform: translateX(0) translateZ(0);
 }
 
 .page-back-exit-active {
     opacity: 0;
-    transform: translateY(200px) translateZ(0);
+    transform: translateX(100%) translateZ(0);
     transition: all var(--transition-duration) var(--transition-easing);
 }
 
 .page-back-enter-done { --transition-z-index: 0; }
 .page-back-exit-done { --transition-z-index: 1; }
+
+
+
+
+/* 슬라이드업 라우팅 앞으로 가기 애니메이션 */
+.slideup-forward-enter {
+    --transition-z-index: 1;
+    opacity: 0;
+    transform: translateY(200px) translateZ(0);
+}
+
+.slideup-forward-enter-active {
+    transform: translateY(0) translateZ(0);
+    opacity: 1;
+    transition: all var(--transition-duration) var(--transition-easing);
+}
+
+.slideup-forward-exit {
+    --transition-z-index: 0;
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+.slideup-forward-exit-active {
+    opacity: 0;
+    transform: translateY(-20px) translateZ(0);
+    transition: all var(--transition-duration) var(--transition-easing);
+}
+
+.slideup-forward-enter-done { --transition-z-index: 1; }
+.slideup-forward-exit-done { --transition-z-index: 0; }
+
+/* 슬라이드업 라우팅 뒤로 가기 애니메이션 */
+.slideup-back-enter {
+    --transition-z-index: 0;
+    opacity: 0;
+    transform: translateY(-20px) translateZ(0);
+}
+
+.slideup-back-enter-active {
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+    transition: all var(--transition-duration) var(--transition-easing);
+}
+
+.slideup-back-exit {
+    --transition-z-index: 1;
+    opacity: 1;
+    transform: translateY(0) translateZ(0);
+}
+
+.slideup-back-exit-active {
+    opacity: 0;
+    transform: translateY(200px) translateZ(0);
+    transition: all var(--transition-duration) var(--transition-easing);
+}
+
+.slideup-back-enter-done { --transition-z-index: 0; }
+.slideup-back-exit-done { --transition-z-index: 1; }
+
+
 
 
 

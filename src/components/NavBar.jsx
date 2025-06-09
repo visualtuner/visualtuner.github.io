@@ -8,11 +8,11 @@ export default function NavBar() {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-	const handleNavClick = (path) => {
-		if (location.pathname !== path) {
-			navigate(path);
-		}
-	};
+	const handleNavClick = (path, state = {}) => {
+        if (location.pathname !== path) {
+            navigate(path, { state });
+        }
+    };
 
 	return (
 		<nav className="nav-bar">
@@ -43,6 +43,7 @@ export default function NavBar() {
                 <AppsOutlinedIcon/>
             </Button>
             <Button
+                onClick={() => handleNavClick('/Profiles', { transitionClassName: 'slideup' })}
                 sx={{
                     height:"100%",
                     borderRadius: 0,

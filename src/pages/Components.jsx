@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import Header from "../components/Header";
+import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useOverlay } from "../contexts/OverlayContext";
+import { useOverlay } from "@/contexts/OverlayContext";
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import SideDrawer from "../components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
+import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
 
 export default function Components() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Components() {
     };
     
     return (
-        <>
+        <Box className="layout">
             <Header>
                 <IconButton aria-label="global side drawer" onClick={handleOpenSideDrawer}
                     sx={{
@@ -104,6 +105,6 @@ export default function Components() {
                     Buttons
                 </Button>
             </Stack>
-        </>
+        </Box>
     );
 }

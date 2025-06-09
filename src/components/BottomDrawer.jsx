@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { useDrawer } from "../contexts/DrawerContext";
-import useDrawerController from "../hooks/useDrawerController";
+import { useDrawer } from "@/contexts/DrawerContext";
+import useDrawerController from "@/hooks/useDrawerController";
 
 export default function BottomDrawer() {
 	const swiperRef = useRef(null);
