@@ -8,11 +8,11 @@ import SideDrawer from "@/components/SideDrawer";
 import MyModalComponent from "@/components/MyModalComponent";
 import useScrollRestoration from "@/hooks/useScrollRestoration"; // 훅 임포트
 
-export default function Home({ transitionDone, scrollPositions }) {
+export default function Home({ transitionDone }) {
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    useScrollRestoration(layoutRef, transitionDone, scrollPositions);
+    useScrollRestoration(layoutRef, transitionDone);
 
     useEffect(() => {
         console.log(`[📍 Home mounted] transitionDone: ${transitionDone}`);
