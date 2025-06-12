@@ -8,7 +8,7 @@ import Components from "@/pages/Components";
 import Buttons from "@/pages/Buttons";
 import Profiles from "@/pages/Profiles";
 
-// 스크롤 위치 저장소 (메모리 기반)
+// 페이지별 스크롤 위치 저장소 (pathname 기준)
 const scrollPositions = new Map();
 
 const ROOT_MENUS = ['/', '/Components'];
@@ -26,7 +26,7 @@ export default function AppRouter() {
         pageTypeClass,
     } = usePageTransition(location, navigationType, ROOT_MENUS, location.state?.noTransition ?? false);
 
-    // noTransition 처리
+    // noTransition 플래그 제거
     useEffect(() => {
         if (location.state?.noTransition) {
             const newState = { ...location.state };
@@ -38,23 +38,21 @@ export default function AppRouter() {
         }
     }, [location.pathname, location.search, location.state, navigate]);
 
-    // 경로 바뀌면 트랜지션 초기화
+    // 경로 변경 시 트랜지션 초기화
     useEffect(() => {
         setTransitionDone(false);
         console.log(`[🔄 transitionDone: false] pathname: ${location.pathname}`);
     }, [location.pathname]);
 
-    // 스크롤 저장: exit 시점
+    // 스크롤 저장 (컴포넌트 exit 직전)
     const handleExit = () => {
         const el = nodeRef.current;
         if (el) {
             const scrollEl = el.querySelector(".layout");
             if (scrollEl) {
                 const y = scrollEl.scrollTop;
-                scrollPositions.set(location.key, y);
-                console.log(`[📦 Save onExit] key: ${location.key}, scrollTop: ${y}`);
-            } else {
-                console.warn("[⚠️ handleExit] .layout 요소를 찾지 못함");
+                scrollPositions.set(location.pathname, y); // ✅ pathname 기준
+                console.log(`[📦 Save onExit] path: ${location.pathname}, scrollTop: ${y}`);
             }
         }
     };
@@ -74,7 +72,7 @@ export default function AppRouter() {
                 nodeRef={nodeRef}
                 timeout={transitionTimeout}
                 unmountOnExit
-                onExit={handleExit} // ✅ 스크롤 저장 위치
+                onExit={handleExit}
                 onEntered={() => {
                     setTransitionDone(true);
                     console.log(`[🎬 transitionDone: true] onEntered for ${location.pathname}`);

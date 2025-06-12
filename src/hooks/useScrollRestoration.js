@@ -1,14 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
- * @param {RefObject} containerRef - 스크롤 대상 DOM
+ * @param {RefObject} containerRef - 스크롤 대상 요소 (예: .layout)
  * @param {boolean} triggerRestore - 트랜지션 완료 여부
- * @param {Map} scrollPositions - AppRouter에서 전달받은 scroll map
+ * @param {Map} scrollPositions - pathname 기준 scroll 저장소
  */
 export default function useScrollRestoration(containerRef, triggerRestore = true, scrollPositions = new Map()) {
     const location = useLocation();
-    const prevKeyRef = useRef(location.key);
 
     useEffect(() => {
         if (!triggerRestore) {
@@ -16,19 +15,15 @@ export default function useScrollRestoration(containerRef, triggerRestore = true
             return;
         }
 
-        const key = location.key;
-        const y = scrollPositions.get(key) ?? 0;
+        const path = location.pathname;
+        const y = scrollPositions.get(path) ?? 0;
 
         const el = containerRef.current;
         setTimeout(() => {
             if (el) {
                 el.scrollTo({ top: y, behavior: "auto" });
-                console.log(`[✅ Restore Done] key: ${key}, scrollTop: ${y}`);
-            } else {
-                console.warn("[⚠️ Restore] containerRef is null");
+                console.log(`[✅ Restore Done] path: ${path}, scrollTop: ${y}`);
             }
         }, 0);
-
-        prevKeyRef.current = key;
-    }, [triggerRestore, location.key, containerRef, scrollPositions]);
+    }, [triggerRestore, location.pathname, containerRef, scrollPositions]);
 }
