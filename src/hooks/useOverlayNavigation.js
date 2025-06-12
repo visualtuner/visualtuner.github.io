@@ -57,12 +57,6 @@ export default function useOverlayNavigation() {
 			return;
 		}
 
-		console.log("[navigateWithClose] pending path:", path);
-		console.log(
-			"[navigateWithClose] incoming options.state:",
-			options?.state
-		);
-
 		pendingNavigationRef.current = {
 			path,
 			options: {

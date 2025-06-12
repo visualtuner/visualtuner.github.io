@@ -29,21 +29,9 @@ export default function usePageTransition(
 	const isToRoot = isRootMenu(to);
 	const needTransition = !(isFromRoot && isToRoot);
 
-	// ✅ 디버깅 로그 추가
-	console.log("[usePageTransition] ▶️");
-	console.log("navigationType:", navigationType);
-	console.log("location.pathname:", location.pathname);
-	console.log("location.state:", location.state);
-	console.log("prevLocation.current.pathname:", prevLocation.current.pathname);
-	console.log("prevLocation.current.state:", prevLocation.current.state);
-
 	const prevTransitionClass = prevLocation.current.state?.transitionClassName;
 	const currentTransitionClass = location.state?.transitionClassName;
 	const customTransition = currentTransitionClass || prevTransitionClass;
-
-	console.log("→ currentTransitionClass:", currentTransitionClass);
-	console.log("→ prevTransitionClass:", prevTransitionClass);
-	console.log("→ resolved customTransition:", customTransition);
 
 	let transitionClassNames = "";
 	if (noTransition) {
@@ -61,8 +49,6 @@ export default function usePageTransition(
 	} else {
 		transitionClassNames = "";
 	}
-
-	console.log("✅ Final transitionClassNames:", transitionClassNames);
 
 	const transitionTimeout = noTransition ? 0 : needTransition ? 400 : 0;
 	const pageTypeClass = isToRoot ? "page--root" : "page--sub";

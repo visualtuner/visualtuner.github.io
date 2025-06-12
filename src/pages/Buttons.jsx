@@ -1,14 +1,19 @@
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import useScrollRestorationBehavior from "@/hooks/useScrollRestoration";
 
 export default function Buttons() {
     const navigate = useNavigate();
+    const layoutRef = useRef(null);
+        
+    useScrollRestorationBehavior(layoutRef, true);
     
     return (
-        <Box className="layout">
+        <Box ref={layoutRef} className="layout">
             <Header >
                 <IconButton aria-label="back" onClick={() => navigate(-1)}
                     sx={{
@@ -24,6 +29,10 @@ export default function Buttons() {
             </Header>
             <h1>Buttons Page</h1>
 			<p>버튼 디자인 모음</p>
+
+            <ol>
+                <li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li>
+            </ol>
         </Box>
     );
 }

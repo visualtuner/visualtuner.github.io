@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
@@ -9,9 +10,13 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
+import useScrollRestorationBehavior from "@/hooks/useScrollRestoration";
 
 export default function Components() {
     const navigate = useNavigate();
+    const layoutRef = useRef(null);
+        
+    useScrollRestorationBehavior(layoutRef, true);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();
@@ -21,7 +26,7 @@ export default function Components() {
     };
     
     return (
-        <Box className="layout">
+        <Box ref={layoutRef} className="layout">
             <Header>
                 <IconButton aria-label="global side drawer" onClick={handleOpenSideDrawer}
                     sx={{
@@ -105,6 +110,10 @@ export default function Components() {
                     Buttons
                 </Button>
             </Stack>
+
+            <ol>
+                <li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li><li>스크롤</li>
+            </ol>
         </Box>
     );
 }
