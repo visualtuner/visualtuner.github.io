@@ -6,13 +6,13 @@ import { useOverlay } from "@/contexts/OverlayContext";
 import Header from "@/components/Header";
 import SideDrawer from "@/components/SideDrawer";
 import MyModalComponent from "@/components/MyModalComponent";
-import useScrollRestorationBehavior from "@/hooks/useScrollRestoration"; // 훅 임포트
+import useScrollRestoration from "@/hooks/useScrollRestoration"; // 훅 임포트
 
-export default function Home() {
+export default function Home({ transitionDone }) {
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    useScrollRestorationBehavior(layoutRef, true);
+    useScrollRestoration(layoutRef, transitionDone);
 
     const handleOpenSideDrawer = () => {
         openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });

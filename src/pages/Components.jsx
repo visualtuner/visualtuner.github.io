@@ -10,13 +10,13 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
-import useScrollRestorationBehavior from "@/hooks/useScrollRestoration";
+import useScrollRestoration from "@/hooks/useScrollRestoration";
 
-export default function Components() {
+export default function Components({ transitionDone }) {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestorationBehavior(layoutRef, true);
+    useScrollRestoration(layoutRef, transitionDone);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();

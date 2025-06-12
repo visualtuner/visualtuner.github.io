@@ -4,13 +4,13 @@ import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import useScrollRestorationBehavior from "@/hooks/useScrollRestoration";
+import useScrollRestoration from "@/hooks/useScrollRestoration";
 
-export default function Profiles() {
+export default function Profiles({ transitionDone }) {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestorationBehavior(layoutRef, true);
+    useScrollRestoration(layoutRef, transitionDone);
     
     return (
         <Box ref={layoutRef} className="layout">
