@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -8,11 +8,15 @@ import SideDrawer from "@/components/SideDrawer";
 import MyModalComponent from "@/components/MyModalComponent";
 import useScrollRestoration from "@/hooks/useScrollRestoration"; // 훅 임포트
 
-export default function Home({ transitionDone }) {
+export default function Home({ transitionDone, scrollPositions }) {
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone, scrollPositions);
+
+    useEffect(() => {
+        console.log(`[📍 Home mounted] transitionDone: ${transitionDone}`);
+    }, [transitionDone]);
 
     const handleOpenSideDrawer = () => {
         openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });

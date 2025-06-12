@@ -6,11 +6,11 @@ import Box from '@mui/material/Box';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import useScrollRestoration from "@/hooks/useScrollRestoration";
 
-export default function Profiles({ transitionDone }) {
+export default function Profiles({ transitionDone, scrollPositions }) {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone, scrollPositions);
     
     return (
         <Box ref={layoutRef} className="layout">

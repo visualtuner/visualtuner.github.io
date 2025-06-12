@@ -12,11 +12,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
 import useScrollRestoration from "@/hooks/useScrollRestoration";
 
-export default function Components({ transitionDone }) {
+export default function Components({ transitionDone, scrollPositions }) {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone, scrollPositions);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();

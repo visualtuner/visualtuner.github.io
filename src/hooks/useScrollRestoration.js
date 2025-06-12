@@ -1,37 +1,34 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-// 페이지별 스크롤 위치 저장소
-const scrollPositions = new Map();
-
 /**
- * @param {RefObject} containerRef - 스크롤 컨테이너 ref
+ * @param {RefObject} containerRef - 스크롤 대상 DOM
  * @param {boolean} triggerRestore - 트랜지션 완료 여부
+ * @param {Map} scrollPositions - AppRouter에서 전달받은 scroll map
  */
-export default function useScrollRestoration(containerRef, triggerRestore = true) {
+export default function useScrollRestoration(containerRef, triggerRestore = true, scrollPositions = new Map()) {
     const location = useLocation();
     const prevKeyRef = useRef(location.key);
 
-    // 페이지 이동 전: 이전 위치 저장
     useEffect(() => {
-        const key = prevKeyRef.current;
-        if (containerRef.current) {
-            scrollPositions.set(key, containerRef.current.scrollTop);
+        if (!triggerRestore) {
+            console.log("[⏸ Skip Restore] transition not done yet.");
+            return;
         }
-    }, [location.pathname, containerRef]);
-
-    // 트랜지션 완료 후: 복원 실행
-    useEffect(() => {
-        if (!triggerRestore) return;
 
         const key = location.key;
         const y = scrollPositions.get(key) ?? 0;
 
         const el = containerRef.current;
         setTimeout(() => {
-            if (el) el.scrollTo({ top: y, behavior: "auto" });
-        }, 0); // 필요 시 50ms로 늘릴 수 있음
+            if (el) {
+                el.scrollTo({ top: y, behavior: "auto" });
+                console.log(`[✅ Restore Done] key: ${key}, scrollTop: ${y}`);
+            } else {
+                console.warn("[⚠️ Restore] containerRef is null");
+            }
+        }, 0);
 
         prevKeyRef.current = key;
-    }, [triggerRestore, location.key, containerRef]);
+    }, [triggerRestore, location.key, containerRef, scrollPositions]);
 }
