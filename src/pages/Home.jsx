@@ -7,16 +7,21 @@ import Header from "@/components/Header";
 import SideDrawer from "@/components/SideDrawer";
 import MyModalComponent from "@/components/MyModalComponent";
 import useScrollRestoration from "@/hooks/useScrollRestoration"; // 훅 임포트
+import { useTransition } from "@/contexts/TransitionContext";
 
-export default function Home({ transitionDone }) {
+export default function Home() {
+    const { transitionDone } = useTransition();
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    useScrollRestoration(layoutRef, transitionDone);
+    // useScrollRestoration(layoutRef, transitionDone);
 
     useEffect(() => {
-        console.log(`[📍 Home mounted] transitionDone: ${transitionDone}`);
-    }, [transitionDone]);
+		console.log("Home - transitionDone?", transitionDone);
+        if (transitionDone) {
+            console.log("Home - transitionDone? 이번엔?", transitionDone);
+        }
+	}, [transitionDone]);
 
     const handleOpenSideDrawer = () => {
         openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });

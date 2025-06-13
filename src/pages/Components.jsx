@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
@@ -11,15 +11,24 @@ import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import SideDrawer from "@/components/SideDrawer"; // SideDrawer 컴포넌트를 임포트합니다.
 import useScrollRestoration from "@/hooks/useScrollRestoration";
+import { useTransition } from "@/contexts/TransitionContext";
 
-export default function Components({ transitionDone }) {
+export default function Components() {
+    const { transitionDone } = useTransition();
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone);
+    // useScrollRestoration(layoutRef, transitionDone);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();
+
+    useEffect(() => {
+        console.log("Components - transitionDone?", transitionDone);
+        if (transitionDone) {
+            console.log("Components - transitionDone? 이번엔?", transitionDone);
+        }
+    }, [transitionDone]);
     
     const handleOpenSideDrawer = () => {
         openOverlay("drawer", "mainSideDrawer", SideDrawer, { someCustomProp: "value" });
