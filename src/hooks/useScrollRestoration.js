@@ -1,42 +1,38 @@
 // useScrollRestoration.js
-import { useLayoutEffect, useRef, useEffect } from "react";
+import { useLayoutEffect, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-const scrollPositions = new Map();
+const scrollPositions = { byKey: new Map(), byPath: {} };
 
-/**
- * @param {RefObject} containerRef - 스크롤 대상 DOM
- * @param {boolean} transitionDone - 트랜지션 완료 여부
- */
-export default function useScrollRestoration(containerRef, transitionDone = true) {
-  const location = useLocation();
-  const prevKeyRef = useRef(location.key);
+export default function useScrollRestoration(
+	containerRef,
+	transitionDone = true
+) {
+	const location = useLocation();
+	const key = location.key;
+	const path = location.pathname;
+	const scrollListenerRef = useRef(null);
 
-  // ✅ 트랜지션 완료 후에만 복원
-  useLayoutEffect(() => {
-    if (!transitionDone) {
-      console.log("[⏸ Skip Restore] transition not done yet.");
-      return;
-    }
+	// 스크롤 이벤트 저장 (by key + by path)
+	useEffect(() => {
+		const el = containerRef.current;
+		if (!el) return;
+		const handler = () => {
+			scrollPositions.byKey.set(key, el.scrollTop);
+			scrollPositions.byPath[path] = el.scrollTop;
+			console.log(`[📦 Save onScroll] key=${key}, path=${path}, scrollTop=${el.scrollTop}`);
+		};
+		el.addEventListener("scroll", handler);
+		scrollListenerRef.current = handler;
+		return () => el.removeEventListener("scroll", handler);
+	}, [key, path, containerRef]);
 
-    const key = location.key;
-    const scrollY = scrollPositions.get(key) ?? 0;
-
-    requestAnimationFrame(() => {
-      if (containerRef.current) {
-        containerRef.current.scrollTo({ top: scrollY, behavior: "auto" });
-        console.log("[✅ Restore Done] key:", key, ", scrollTop:", scrollY);
-      }
-    });
-  }, [transitionDone, location.key, containerRef]);
-
-  // ✅ 페이지 이동 시 이전 페이지 스크롤 저장
-  useEffect(() => {
-    const prevKey = prevKeyRef.current;
-    if (containerRef.current) {
-      scrollPositions.set(prevKey, containerRef.current.scrollTop);
-      console.log("[📦 Save onExit] key:", prevKey, ", scrollTop:", containerRef.current.scrollTop);
-    }
-    prevKeyRef.current = location.key;
-  }, [location.key, containerRef]);
+	// transitionDone 완료되고 mount 후 복원
+	useLayoutEffect(() => {
+		if (!transitionDone) return;
+		const y = scrollPositions.byKey.get(key) ?? scrollPositions.byPath[path] ?? 0;
+		console.log(`[🔍 Restore Attempt] key=${key}, path=${path}, scrollY=${y}`);
+		containerRef.current?.scrollTo({ top: y, behavior: "auto" });
+		console.log(`[✅ Restore Done] restored to ${containerRef.current?.scrollTop}`);
+	}, [transitionDone, key, path, containerRef]);
 }

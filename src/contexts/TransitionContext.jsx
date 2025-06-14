@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
 export const TransitionContext = createContext({
-  transitionDone: false,          // ✅ 기본값 추가
+  transitionDone: true,          // ✅ 기본값 추가
   setTransitionDone: () => {}
 });
 

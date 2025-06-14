@@ -16,20 +16,22 @@ import Buttons from "@/pages/Buttons";
 import Profiles from "@/pages/Profiles";
 import { TransitionProvider } from "@/contexts/TransitionContext";
 
-const ROOT_MENUS = ["/", "/Components"];
+// 전역 저장 맵과 옵저버 정리용 유틸
+const scrollPositions = new Map();
+function cleanupObservers() {
+	console.log("🔧 cleanupObservers 실행됨");
+}
 
 export default function AppRouter() {
 	const location = useLocation();
 	const navigationType = useNavigationType();
 	const navigate = useNavigate();
-
 	const [transitionDone, setTransitionDone] = useState(false);
 
 	useEffect(() => {
 		if (location.state?.noTransition) {
 			const newState = { ...location.state };
 			delete newState.noTransition;
-			console.log("🧼 Cleaning noTransition flag:", newState);
 			navigate(location.pathname + location.search, {
 				replace: true,
 				state: newState,
@@ -41,12 +43,12 @@ export default function AppRouter() {
 		usePageTransition(
 			location,
 			navigationType,
-			ROOT_MENUS,
+			["/", "/Components"],
 			!!location.state?.noTransition
 		);
 
 	return (
-		// <TransitionProvider value={{ transitionDone, setTransitionDone }} >
+		<TransitionProvider value={{ transitionDone, setTransitionDone }}>
 			<TransitionGroup
 				component={null}
 				childFactory={(child) =>
@@ -63,8 +65,7 @@ export default function AppRouter() {
 					unmountOnExit
 					onExit={() => {
 						console.log("[👋 onExit]", location.pathname);
-						//setTransitionDone(false);
-						console.log("=> transitionDone = false");
+						cleanupObservers();
 					}}
 					onEntered={() => {
 						console.log("[🎬 onEntered]", location.pathname);
@@ -88,6 +89,6 @@ export default function AppRouter() {
 					</Box>
 				</CSSTransition>
 			</TransitionGroup>
-		// </TransitionProvider>
+		</TransitionProvider>
 	);
 }

@@ -14,13 +14,13 @@ export default function Home() {
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    // useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone);
 
     useEffect(() => {
 		console.log("Home - transitionDone?", transitionDone);
-        if (transitionDone) {
-            console.log("Home - transitionDone? 이번엔?", transitionDone);
-        }
+		if (transitionDone) {
+			console.log("→ Home: 트랜지션 완료, 스크롤 복원 가능");
+		}
 	}, [transitionDone]);
 
     const handleOpenSideDrawer = () => {
