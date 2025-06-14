@@ -14,7 +14,7 @@ export default function Home() {
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
 
-    useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone, true, location.state?.restoreScroll);
 
     useEffect(() => {
 		console.log("Home - transitionDone?", transitionDone);

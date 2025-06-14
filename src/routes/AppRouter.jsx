@@ -74,14 +74,8 @@ export default function AppRouter() {
 					<Box ref={nodeRef} className={`page ${pageTypeClass}`}>
 						<Routes location={location}>
 							<Route path="/" element={<Home />} />
-							<Route
-								path="/Components"
-								element={<Components />}
-							/>
-							<Route
-								path="/Components/Buttons"
-								element={<Buttons />}
-							/>
+							<Route path="/Components" element={<Components />} />
+							<Route path="/Components/Buttons" element={<Buttons />} />
 							<Route path="/Profiles" element={<Profiles />} />
 						</Routes>
 					</Box>

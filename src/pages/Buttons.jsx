@@ -12,7 +12,7 @@ export default function Buttons() {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone);
+    useScrollRestoration(layoutRef, transitionDone, true, location.state?.restoreScroll);
 
     useEffect(() => {
         console.log("Buttons - transitionDone?", transitionDone);
