@@ -16,8 +16,7 @@ import Buttons from "@/pages/Buttons";
 import Profiles from "@/pages/Profiles";
 import { TransitionProvider } from "@/contexts/TransitionContext";
 
-// 전역 저장 맵과 옵저버 정리용 유틸
-const scrollPositions = new Map();
+// 옵저버 정리용 유틸
 function cleanupObservers() {
 	console.log("🔧 cleanupObservers 실행됨");
 }
@@ -70,7 +69,6 @@ export default function AppRouter() {
 					onEntered={() => {
 						console.log("[🎬 onEntered]", location.pathname);
 						setTransitionDone(true);
-						console.log("=> transitionDone = true");
 					}}
 				>
 					<Box ref={nodeRef} className={`page ${pageTypeClass}`}>
