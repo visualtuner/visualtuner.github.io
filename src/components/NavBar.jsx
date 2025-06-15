@@ -17,7 +17,7 @@ export default function NavBar() {
 	return (
 		<nav className="nav-bar">
             <Button
-                onClick={() => handleNavClick('/')}
+                onClick={() => handleNavClick('/', { restoreScroll: false })}
                 sx={{
                     height:"100%",
                     borderRadius: 0,

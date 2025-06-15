@@ -1,42 +1,53 @@
-// useScrollRestoration.js
-import { useLayoutEffect, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLayoutEffect, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const scrollPositions = { byKey: new Map(), byPath: {} };
 
 export default function useScrollRestoration(
-	containerRef,
-	transitionDone = true,
-	defaultRestore = true,
-	overrideRestore
+  containerRef,
+  transitionDone = true,
+  defaultRestore = true,
+  overrideRestoreOnce
 ) {
-	const location = useLocation();
-	const key = location.key;
-	const path = location.pathname;
+  const { key, pathname: path, state } = useLocation();
+  const navigate = useNavigate();
 
-	// 실제 복원 여부 계산
-	const shouldRestore =
-		overrideRestore !== undefined ? overrideRestore : defaultRestore;
+  const override = overrideRestoreOnce != null
+    ? overrideRestoreOnce
+    : typeof state?.restoreScroll === "boolean"
+    ? state.restoreScroll
+    : undefined;
 
-	// 스크롤 이벤트 저장
-	useEffect(() => {
-		const el = containerRef.current;
-		if (!el) return;
-		const handler = () => {
-			scrollPositions.byKey.set(key, el.scrollTop);
-			scrollPositions.byPath[path] = el.scrollTop;
-		};
-		el.addEventListener("scroll", handler);
-		return () => el.removeEventListener("scroll", handler);
-	}, [key, path, containerRef]);
+  const shouldRestore = override !== undefined ? override : defaultRestore;
 
-	// transitionDone 이후 복원 or 스킵
-	useLayoutEffect(() => {
-		if (!transitionDone) return;
-		if (!shouldRestore) return;
+  const navigatedRef = useRef(false);
+  const overrideRef = useRef(overrideRestoreOnce);
 
-		const y =
-			scrollPositions.byKey.get(key) ?? scrollPositions.byPath[path] ?? 0;
-		containerRef.current?.scrollTo({ top: y, behavior: "auto" });
-	}, [transitionDone, key, path, containerRef, shouldRestore]);
+  console.log({ key, path, override, shouldRestore, mounted: navigatedRef.current });
+
+  useEffect(() => {
+    if (overrideRef.current != null && !navigatedRef.current) {
+      navigatedRef.current = true;
+      overrideRef.current = null; // 한 번만 실행
+      navigate(path, { replace: true, state: {} });
+    }
+  }, [navigate, path]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const handler = () => {
+      scrollPositions.byKey.set(key, el.scrollTop);
+      scrollPositions.byPath[path] = el.scrollTop;
+    };
+    el.addEventListener("scroll", handler);
+    return () => el.removeEventListener("scroll", handler);
+  }, [key, path, containerRef]);
+
+  useLayoutEffect(() => {
+    if (!transitionDone || !shouldRestore) return;
+    const y = scrollPositions.byKey.get(key) ?? scrollPositions.byPath[path] ?? 0;
+    console.log(`🔍 스크롤 복원: top=${y}`);
+    containerRef.current?.scrollTo({ top: y, behavior: "auto" });
+  }, [transitionDone, shouldRestore, key, path, containerRef]);
 }

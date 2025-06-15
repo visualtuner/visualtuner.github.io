@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -14,6 +14,7 @@ import useScrollRestoration from "@/hooks/useScrollRestoration";
 import { useTransition } from "@/contexts/TransitionContext";
 
 export default function Components() {
+    const location = useLocation();
     const { transitionDone } = useTransition();
     const navigate = useNavigate();
     const layoutRef = useRef(null);
@@ -24,9 +25,9 @@ export default function Components() {
     const { openOverlay } = useOverlay();
 
     useEffect(() => {
-        console.log("Components - transitionDone?", transitionDone);
+        //console.log("Components - transitionDone?", transitionDone);
         if (transitionDone) {
-            console.log("Components - transitionDone? 이번엔?", transitionDone);
+            //console.log("Components - transitionDone? 이번엔?", transitionDone);
         }
     }, [transitionDone]);
     
@@ -75,8 +76,8 @@ export default function Components() {
                 </Button>
             </Stack>
             <Stack direction="row" spacing={1} sx={{ px: 2, mt: 1 }}>
-                <Button variant="contained" color="primary" onClick={() => navigate('/Components/Buttons')}>
-                    Buttons
+                <Button variant="contained" color="primary" onClick={() => navigate('/')}>
+                    홈으로로
                 </Button>
 
                 <Button variant="outlined" color="primary" endIcon={<ChevronRightIcon />} onClick={() => navigate('/Components/Buttons')}>

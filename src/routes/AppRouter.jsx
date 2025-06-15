@@ -18,7 +18,7 @@ import { TransitionProvider } from "@/contexts/TransitionContext";
 
 // 옵저버 정리용 유틸
 function cleanupObservers() {
-	console.log("🔧 cleanupObservers 실행됨");
+	//console.log("🔧 cleanupObservers 실행됨");
 }
 
 export default function AppRouter() {
@@ -63,11 +63,11 @@ export default function AppRouter() {
 					timeout={transitionTimeout}
 					unmountOnExit
 					onExit={() => {
-						console.log("[👋 onExit]", location.pathname);
+						//console.log("[👋 onExit]", location.pathname);
 						cleanupObservers();
 					}}
 					onEntered={() => {
-						console.log("[🎬 onEntered]", location.pathname);
+						//console.log("[🎬 onEntered]", location.pathname);
 						setTransitionDone(true);
 					}}
 				>

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -10,6 +11,7 @@ import useScrollRestoration from "@/hooks/useScrollRestoration"; // 훅 임포�
 import { useTransition } from "@/contexts/TransitionContext";
 
 export default function Home() {
+    const location = useLocation();
     const { transitionDone } = useTransition();
     const { openOverlay } = useOverlay();
     const layoutRef = useRef(null);
@@ -17,9 +19,9 @@ export default function Home() {
     useScrollRestoration(layoutRef, transitionDone, true, location.state?.restoreScroll);
 
     useEffect(() => {
-		console.log("Home - transitionDone?", transitionDone);
+		//console.log("Home - transitionDone?", transitionDone);
 		if (transitionDone) {
-			console.log("→ Home: 트랜지션 완료, 스크롤 복원 가능");
+			//console.log("→ Home: 트랜지션 완료, 스크롤 복원 가능");
 		}
 	}, [transitionDone]);
 

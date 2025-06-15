@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from "@/components/Header";
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import useScrollRestoration from "@/hooks/useScrollRestoration";
 import { useTransition } from "@/contexts/TransitionContext";
 
 export default function Profiles() {
+    const location = useLocation();
     const { transitionDone } = useTransition();
     const navigate = useNavigate();
     const layoutRef = useRef(null);
@@ -15,9 +16,9 @@ export default function Profiles() {
     useScrollRestoration(layoutRef, transitionDone, false, location.state?.restoreScroll);
 
     useEffect(() => {
-        console.log("Profiles - transitionDone?", transitionDone);
+        //console.log("Profiles - transitionDone?", transitionDone);
         if (transitionDone) {
-            console.log("Profiles - transitionDone? 이번엔?", transitionDone);
+            //console.log("Profiles - transitionDone? 이번엔?", transitionDone);
         }
     }, [transitionDone]);
     
