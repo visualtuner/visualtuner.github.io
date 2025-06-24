@@ -1,53 +1,75 @@
 import { useLayoutEffect, useEffect, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const scrollPositions = { byKey: new Map(), byPath: {} };
+// ✅ 복원 실패 방지를 위해 key + path 모두 저장
+const scrollPositions = {
+	byKey: new Map(),
+	byPath: {},
+};
 
 export default function useScrollRestoration(
-  containerRef,
-  transitionDone = true,
-  defaultRestore = true,
-  overrideRestoreOnce
+	containerRef,
+	transitionDone = true,
+	defaultRestore = true,
+	overrideRestoreOnce
 ) {
-  const { key, pathname: path, state } = useLocation();
-  const navigate = useNavigate();
+	const location = useLocation();
+	const navigate = useNavigate();
+	const { key, pathname, search, state } = location;
 
-  const override = overrideRestoreOnce != null
-    ? overrideRestoreOnce
-    : typeof state?.restoreScroll === "boolean"
-    ? state.restoreScroll
-    : undefined;
+	const hasHandledRef = useRef(false);
 
-  const shouldRestore = override !== undefined ? override : defaultRestore;
+	const override =
+		overrideRestoreOnce != null
+			? overrideRestoreOnce
+			: typeof state?.restoreScroll === "boolean"
+			? state.restoreScroll
+			: undefined;
 
-  const navigatedRef = useRef(false);
-  const overrideRef = useRef(overrideRestoreOnce);
+	const shouldRestore = override !== undefined ? override : defaultRestore;
 
-  console.log({ key, path, override, shouldRestore, mounted: navigatedRef.current });
+	// ⚠️ restoreScroll: false 처리
+	useEffect(() => {
+		if (hasHandledRef.current || override == null) return;
 
-  useEffect(() => {
-    if (overrideRef.current != null && !navigatedRef.current) {
-      navigatedRef.current = true;
-      overrideRef.current = null; // 한 번만 실행
-      navigate(path, { replace: true, state: {} });
-    }
-  }, [navigate, path]);
+		hasHandledRef.current = true;
 
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-    const handler = () => {
-      scrollPositions.byKey.set(key, el.scrollTop);
-      scrollPositions.byPath[path] = el.scrollTop;
-    };
-    el.addEventListener("scroll", handler);
-    return () => el.removeEventListener("scroll", handler);
-  }, [key, path, containerRef]);
+		if (override === false) {
+			scrollPositions.byKey.set(key, 0);
+			scrollPositions.byPath[pathname] = 0;
+			// console.log("💥 위치 0으로 초기화됨");
+		}
 
-  useLayoutEffect(() => {
-    if (!transitionDone || !shouldRestore) return;
-    const y = scrollPositions.byKey.get(key) ?? scrollPositions.byPath[path] ?? 0;
-    console.log(`🔍 스크롤 복원: top=${y}`);
-    containerRef.current?.scrollTo({ top: y, behavior: "auto" });
-  }, [transitionDone, shouldRestore, key, path, containerRef]);
+		navigate(pathname + search, {
+			replace: true,
+			state: {},
+		});
+	}, [override, key, pathname, search, navigate]);
+
+	// ✅ 스크롤 위치 저장
+	useEffect(() => {
+		const el = containerRef.current;
+		if (!el) return;
+
+		const handler = () => {
+			scrollPositions.byKey.set(key, el.scrollTop);
+			scrollPositions.byPath[pathname] = el.scrollTop;
+		};
+
+		el.addEventListener("scroll", handler);
+		return () => el.removeEventListener("scroll", handler);
+	}, [key, pathname, containerRef]);
+
+	// ✅ 복원 (fallback: key → path → 0)
+	useLayoutEffect(() => {
+		if (!transitionDone || !shouldRestore) return;
+
+		const y =
+			scrollPositions.byKey.get(key) ??
+			scrollPositions.byPath[pathname] ??
+			0;
+
+		// console.log(`🔍 복원됨: scrollTop=${y}`);
+		containerRef.current?.scrollTo({ top: y, behavior: "auto" });
+	}, [transitionDone, shouldRestore, key, pathname, containerRef]);
 }
