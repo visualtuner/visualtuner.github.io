@@ -19,7 +19,7 @@ export default function Components() {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone, true, location.state?.restoreScroll);
+    useScrollRestoration(layoutRef, undefined,  transitionDone, true, location.state?.restoreScroll);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();

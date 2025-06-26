@@ -13,7 +13,7 @@ export default function Profiles() {
     const navigate = useNavigate();
     const layoutRef = useRef(null);
         
-    useScrollRestoration(layoutRef, transitionDone, false, location.state?.restoreScroll);
+    useScrollRestoration(layoutRef, undefined,  transitionDone, false, location.state?.restoreScroll);
 
     useEffect(() => {
         //console.log("Profiles - transitionDone?", transitionDone);
