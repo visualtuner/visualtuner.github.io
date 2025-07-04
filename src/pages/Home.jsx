@@ -14,9 +14,9 @@ export default function Home() {
     const location = useLocation();
     const { transitionDone } = useTransition();
     const { openOverlay } = useOverlay();
-    const layoutRef = useRef(null);
+    const mainScrollContainerRef = useRef(null);
 
-    useScrollRestoration(layoutRef, undefined,  transitionDone, true, location.state?.restoreScroll);
+    useScrollRestoration(mainScrollContainerRef, undefined,  transitionDone, true, location.state?.restoreScroll);
 
     useEffect(() => {
 		//console.log("Home - transitionDone?", transitionDone);
@@ -34,7 +34,7 @@ export default function Home() {
     };
 
     return (
-        <Box ref={layoutRef} className="layout">
+        <Box ref={mainScrollContainerRef} className="layout">
             <Header>
                 <IconButton aria-label="global side drawer" onClick={handleOpenSideDrawer}
                     sx={{

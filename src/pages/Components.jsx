@@ -17,9 +17,9 @@ export default function Components() {
     const location = useLocation();
     const { transitionDone } = useTransition();
     const navigate = useNavigate();
-    const layoutRef = useRef(null);
+    const mainScrollContainerRef = useRef(null);
         
-    useScrollRestoration(layoutRef, undefined,  transitionDone, true, location.state?.restoreScroll);
+    useScrollRestoration(mainScrollContainerRef, undefined,  transitionDone, true, location.state?.restoreScroll);
 
     // 이제 useDrawer 훅에서 openDrawer 함수를 가져옵니다.
     const { openOverlay } = useOverlay();
@@ -36,7 +36,7 @@ export default function Components() {
     };
     
     return (
-        <Box ref={layoutRef} className="layout">
+        <Box ref={mainScrollContainerRef} className="layout">
             <Header>
                 <IconButton aria-label="global side drawer" onClick={handleOpenSideDrawer}
                     sx={{

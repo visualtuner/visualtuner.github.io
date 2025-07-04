@@ -11,9 +11,9 @@ export default function Profiles() {
     const location = useLocation();
     const { transitionDone } = useTransition();
     const navigate = useNavigate();
-    const layoutRef = useRef(null);
+    const mainScrollContainerRef = useRef(null);
         
-    useScrollRestoration(layoutRef, undefined,  transitionDone, false, location.state?.restoreScroll);
+    useScrollRestoration(mainScrollContainerRef, undefined,  transitionDone, false, location.state?.restoreScroll);
 
     useEffect(() => {
         //console.log("Profiles - transitionDone?", transitionDone);
@@ -23,7 +23,7 @@ export default function Profiles() {
     }, [transitionDone]);
     
     return (
-        <Box ref={layoutRef} className="layout">
+        <Box ref={mainScrollContainerRef} className="layout">
             <Header >
                 <IconButton aria-label="back" onClick={() => navigate(-1)}
                     sx={{
