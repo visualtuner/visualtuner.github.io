@@ -5,7 +5,7 @@ import { OverlayProvider } from "@/contexts/OverlayContext";
 
 export default function App() {
     return (
-        <BrowserRouter basename="/SmartGuide">
+        <BrowserRouter basename="/">
             <OverlayProvider>
                 <AppRouter />
                 <NavBar />
